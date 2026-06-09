@@ -1,7 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CogniQuest" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/primary_fixed_dim</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/on_primary_fixed</item>
+        <item name="colorSecondary">@color/secondary_fixed_dim</item>
+        <item name="android:colorBackground">@color/on_background</item>
+        <item name="colorOnBackground">@color/background</item>
+        <item name="colorSurface">@color/inverse_surface</item>
+        <item name="colorOnSurface">@color/inverse_on_surface</item>
     </style>
 </resources>
