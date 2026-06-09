@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121214"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+    <!-- Atmospheric Background Elements -->
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/blur_primary_bg"
+        android:translationX="-100dp"
+        android:translationY="-100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/blur_secondary_bg"
+        android:translationX="100dp"
+        android:translationY="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="40dp">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <!-- Header -->
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:backgroundTint="@color/primary_container"
+                android:background="@drawable/rounded_bg"
+                android:layout_marginBottom="24dp"
+                android:rotation="3">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_dialog_info"
+                    app:tint="@color/on_primary_container"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CogniQuest"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_fixed_dim"
+                android:layout_marginBottom="16dp"
+                android:letterSpacing="-0.02"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter the arena of knowledge."
+                android:textSize="16sp"
+                android:textColor="#f0f0f3"
+                android:alpha="0.7"
+                android:layout_marginBottom="40dp"/>
+
+            <!-- Username Input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textColor="#f0f0f3"
+                    android:alpha="0.7"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                    app:startIconTint="#f0f0f3"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxBackgroundMode="none"
+                    app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/usernameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Scholar123"
+                        android:textColorHint="#80f0f0f3"
+                        android:textColor="#f0f0f3"
+                        android:textSize="18sp"
+                        android:paddingStart="40dp"
+                        android:background="@drawable/bottom_border_bg"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Password Input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="32dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:textColor="#f0f0f3"
+                        android:alpha="0.7"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentStart="true"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forgot Password?"
+                        android:textColor="@color/primary_fixed_dim"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                    app:startIconTint="#f0f0f3"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxBackgroundMode="none"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="#f0f0f3"
+                    app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:hint="••••••••"
+                        android:textColorHint="#80f0f0f3"
+                        android:textColor="#f0f0f3"
+                        android:textSize="18sp"
+                        android:paddingStart="40dp"
+                        android:background="@drawable/bottom_border_bg"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Login"
+                app:cornerRadius="8dp"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/on_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:icon="@android:drawable/ic_media_play"
+                app:iconGravity="textEnd"
+                app:iconTint="@color/on_primary" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don't have an account? "
+                    android:textSize="16sp"
+                    android:textColor="#f0f0f3"
+                    android:alpha="0.7"/>
+
+                <TextView
+                    android:id="@+id/signupLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign up"
+                    android:textSize="14sp"
+                    android:textColor="@color/primary_fixed_dim"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
