@@ -98,6 +98,7 @@
                         android:layout_marginBottom="16dp">
                         
                         <ProgressBar
+                            android:id="@+id/progressBarOverview"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:indeterminate="false"
@@ -114,6 +115,7 @@
                             android:layout_gravity="center"
                             android:gravity="center">
                             <TextView
+                                android:id="@+id/tvProgressPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="78%"
@@ -130,6 +132,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvProgressSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="You're ahead of 82% of students this week. Keep up the momentum!"
@@ -172,6 +175,7 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
                             <TextView
+                                android:id="@+id/tvCurrentStreak"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Current Streak: 7 Days"
@@ -191,6 +195,7 @@
                                 android:textColor="@color/on_surface_variant"
                                 android:textSize="12sp"/>
                             <TextView
+                                android:id="@+id/tvBestStreak"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="14 Days"
@@ -252,6 +257,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/on_surface"/>
                         <TextView
+                            android:id="@+id/tvDailyGoalLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="45m left"
@@ -259,6 +265,7 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
                     <ProgressBar
+                        android:id="@+id/progressBarDaily"
                         android:layout_width="match_parent"
                         android:layout_height="12dp"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -293,6 +300,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/on_surface"/>
                         <TextView
+                            android:id="@+id/tvWeeklyGoalLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3.3h left"
@@ -300,6 +308,7 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
                     <ProgressBar
+                        android:id="@+id/progressBarWeekly"
                         android:layout_width="match_parent"
                         android:layout_height="12dp"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -308,6 +317,23 @@
                         android:progressTint="@color/secondary"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Available Quizzes -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Available Quizzes"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface_variant"
+                android:layout_marginBottom="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewQuizzes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="24dp"/>
 
             <!-- Recent History -->
             <LinearLayout
@@ -334,6 +360,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecentQuiz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
@@ -360,6 +387,7 @@
                         android:orientation="vertical"
                         android:layout_marginStart="12dp">
                         <TextView
+                            android:id="@+id/tvRecentQuizTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Machine Learning"
@@ -367,6 +395,7 @@
                             android:textStyle="bold"
                             android:textSize="16sp"/>
                         <TextView
+                            android:id="@+id/tvRecentQuizSubtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Today • 45m session"
@@ -374,6 +403,7 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/tvRecentQuizStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Completed"
