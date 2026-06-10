@@ -4,23 +4,26 @@ public class Quiz {
     private int id;
     private String title;
     private String description;
+    private String category;
     private int questionsCount;
     private Difficulty difficulty;
 
     public Quiz() {
     }
 
-    public Quiz(int id, String title, String description, int questionsCount, Difficulty difficulty) {
+    public Quiz(int id, String title, String description, String category, int questionsCount, Difficulty difficulty) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.category = category;
         this.questionsCount = questionsCount;
         this.difficulty = difficulty;
     }
     
-    public Quiz(String title, String description, int questionsCount, Difficulty difficulty) {
+    public Quiz(String title, String description, String category, int questionsCount, Difficulty difficulty) {
         this.title = title;
         this.description = description;
+        this.category = category;
         this.questionsCount = questionsCount;
         this.difficulty = difficulty;
     }
@@ -47,6 +50,14 @@ public class Quiz {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getQuestionsCount() {
