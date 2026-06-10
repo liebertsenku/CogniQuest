@@ -94,6 +94,14 @@ public class ManageQuizzesActivity extends AppCompatActivity {
             public void onDeleteClick(Quiz quiz) {
                 confirmDelete(quiz);
             }
+
+            @Override
+            public void onCardClick(Quiz quiz) {
+                Intent intent = new Intent(ManageQuizzesActivity.this, ManageQuestionsActivity.class);
+                intent.putExtra("quiz_id", quiz.getId());
+                intent.putExtra("quiz_title", quiz.getTitle());
+                startActivity(intent);
+            }
         });
         binding.recyclerViewQuizzes.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewQuizzes.setAdapter(quizAdapter);
@@ -133,6 +141,10 @@ public class ManageQuizzesActivity extends AppCompatActivity {
         etDesc.setHint("Description");
         layout.addView(etDesc);
 
+        final EditText etCategory = new EditText(this);
+        etCategory.setHint("Category (e.g. Science)");
+        layout.addView(etCategory);
+
         final EditText etQuestions = new EditText(this);
         etQuestions.setHint("Number of Questions");
         etQuestions.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
@@ -148,6 +160,7 @@ public class ManageQuizzesActivity extends AppCompatActivity {
         if (quiz != null) {
             etTitle.setText(quiz.getTitle());
             etDesc.setText(quiz.getDescription());
+            etCategory.setText(quiz.getCategory());
             etQuestions.setText(String.valueOf(quiz.getQuestionsCount()));
             if (quiz.getDifficulty() != null) {
                 int pos = spinnerAdapter.getPosition(quiz.getDifficulty());
@@ -160,11 +173,12 @@ public class ManageQuizzesActivity extends AppCompatActivity {
         builder.setPositiveButton("Save", (dialog, which) -> {
             String title = etTitle.getText().toString().trim();
             String desc = etDesc.getText().toString().trim();
+            String cat = etCategory.getText().toString().trim();
             String qStr = etQuestions.getText().toString().trim();
             Difficulty difficulty = (Difficulty) spinnerDifficulty.getSelectedItem();
 
-            if (title.isEmpty() || qStr.isEmpty()) {
-                Toast.makeText(this, "Title and Question Count required", Toast.LENGTH_SHORT).show();
+            if (title.isEmpty() || cat.isEmpty() || qStr.isEmpty()) {
+                Toast.makeText(this, "Title, Category, and Question Count required", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -173,12 +187,13 @@ public class ManageQuizzesActivity extends AppCompatActivity {
             if (quiz == null) {
                 // Add new
                 DatabaseHelper db = new DatabaseHelper(this);
-                db.addQuiz(new Quiz(title, desc, qCount, difficulty));
+                db.addQuiz(new Quiz(title, desc, cat, qCount, difficulty));
                 Toast.makeText(this, "Quiz added", Toast.LENGTH_SHORT).show();
             } else {
                 // Edit
                 quiz.setTitle(title);
                 quiz.setDescription(desc);
+                quiz.setCategory(cat);
                 quiz.setQuestionsCount(qCount);
                 quiz.setDifficulty(difficulty);
                 DatabaseHelper db = new DatabaseHelper(this);

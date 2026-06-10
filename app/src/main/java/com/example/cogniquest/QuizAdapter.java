@@ -15,15 +15,24 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     private List<Quiz> quizList;
     private OnQuizClickListener listener;
+    private boolean showAdminControls = false;
 
     public interface OnQuizClickListener {
         void onEditClick(Quiz quiz);
         void onDeleteClick(Quiz quiz);
+        void onCardClick(Quiz quiz);
     }
 
     public QuizAdapter(List<Quiz> quizList, OnQuizClickListener listener) {
         this.quizList = quizList;
         this.listener = listener;
+        this.showAdminControls = (listener != null);
+    }
+
+    public QuizAdapter(List<Quiz> quizList, OnQuizClickListener listener, boolean showAdminControls) {
+        this.quizList = quizList;
+        this.listener = listener;
+        this.showAdminControls = showAdminControls;
     }
 
     @NonNull
@@ -50,7 +59,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
             holder.tvDifficulty.setTextColor(android.graphics.Color.parseColor("#006a2c"));
         }
 
-        if (listener == null) {
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onCardClick(quiz);
+            }
+        });
+
+        if (!showAdminControls) {
             holder.btnEdit.setVisibility(View.GONE);
             holder.btnDelete.setVisibility(View.GONE);
         } else {
