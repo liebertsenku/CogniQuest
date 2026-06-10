@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#1Ac7c4d8"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginBottom="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvQuestionIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question 1"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <ImageButton
+                    android:id="@+id/btnEditQuestion"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@android:drawable/ic_menu_edit"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/outline"
+                    android:layout_marginEnd="8dp"/>
+
+                <ImageButton
+                    android:id="@+id/btnDeleteQuestion"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@android:drawable/ic_menu_delete"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="#a2002c"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvQuestionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Which fundamental force is responsible for the orbit of planets?"
+            android:textColor="@color/on_surface"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Option Cards -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvOptionA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A: Option A text"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp"
+                android:paddingVertical="4dp"/>
+
+            <TextView
+                android:id="@+id/tvOptionB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="B: Option B text"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp"
+                android:paddingVertical="4dp"/>
+
+            <TextView
+                android:id="@+id/tvOptionC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="C: Option C text"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp"
+                android:paddingVertical="4dp"/>
+
+            <TextView
+                android:id="@+id/tvOptionD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D: Option D text"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp"
+                android:paddingVertical="4dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1Ac7c4d8"
+            android:layout_marginVertical="8dp"/>
+
+        <TextView
+            android:id="@+id/tvCorrectAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correct Answer: Option C"
+            android:textColor="@color/secondary"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
