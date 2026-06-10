@@ -38,6 +38,7 @@
         
         <!-- Phase 2 Activities -->
         <activity android:name=".ManageQuizzesActivity" />
+        <activity android:name=".ManageQuestionsActivity" />
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".LearningProgressActivity" />
         <activity android:name=".AiAssistantActivity" />
