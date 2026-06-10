@@ -54,5 +54,14 @@ public class QuizHistoryActivity extends AppCompatActivity {
         });
 
         binding.bottomNavigation.setSelectedItemId(R.id.nav_progress);
+
+        // Load Quiz History dynamically
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        String username = new UserManager(this).getUsername();
+        java.util.List<QuizHistory> historyList = databaseHelper.getQuizHistory(username);
+
+        QuizHistoryAdapter adapter = new QuizHistoryAdapter(historyList);
+        binding.recyclerViewHistory.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
+        binding.recyclerViewHistory.setAdapter(adapter);
     }
 }
