@@ -70,9 +70,10 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true">
                     <TextView
+                        android:id="@+id/tvProfileStreakXP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12 🔥 2500 XP"
+                        android:text="0 🔥 0 XP"
                         android:textStyle="bold"
                         android:textColor="@color/on_tertiary_fixed"
                         android:textSize="12sp"/>
@@ -252,9 +253,10 @@
                             android:textStyle="bold"
                             android:letterSpacing="0.05"/>
                         <TextView
+                            android:id="@+id/tvProfileAccuracy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="78%"
+                            android:text="0%"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:textColor="@color/on_surface"/>
@@ -293,9 +295,10 @@
                             android:textStyle="bold"
                             android:letterSpacing="0.05"/>
                         <TextView
+                            android:id="@+id/tvProfileQuestions"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1,240"
+                            android:text="0"
                             android:textSize="24sp"
                             android:textStyle="bold"
                             android:textColor="@color/on_surface"/>
@@ -314,6 +317,7 @@
                 app:cardBackgroundColor="@color/white"
                 android:layout_marginBottom="24dp">
                 <LinearLayout
+                    android:id="@+id/llTopCategoriesContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -326,110 +330,8 @@
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:layout_marginBottom="16dp"/>
-
-                    <!-- Science -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="12dp">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Science"
-                                android:textSize="14sp"
-                                android:textColor="@color/on_surface_variant"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="85%"
-                                android:textSize="14sp"
-                                android:textColor="@color/primary"
-                                android:textStyle="bold"
-                                android:layout_alignParentEnd="true"/>
-                        </RelativeLayout>
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="6dp"
-                            android:progress="85"
-                            android:max="100"
-                            android:progressTint="@color/primary"
-                            android:progressBackgroundTint="#1A3f3bbd"/>
-                    </LinearLayout>
-
-                    <!-- History -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="12dp">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="History"
-                                android:textSize="14sp"
-                                android:textColor="@color/on_surface_variant"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="70%"
-                                android:textSize="14sp"
-                                android:textColor="@color/secondary"
-                                android:textStyle="bold"
-                                android:layout_alignParentEnd="true"/>
-                        </RelativeLayout>
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="6dp"
-                            android:progress="70"
-                            android:max="100"
-                            android:progressTint="@color/secondary"
-                            android:progressBackgroundTint="#1A006c49"/>
-                    </LinearLayout>
-
-                    <!-- Arts -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Arts"
-                                android:textSize="14sp"
-                                android:textColor="@color/on_surface_variant"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="55%"
-                                android:textSize="14sp"
-                                android:textColor="@color/secondary_fixed_dim"
-                                android:textStyle="bold"
-                                android:layout_alignParentEnd="true"/>
-                        </RelativeLayout>
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="6dp"
-                            android:progress="55"
-                            android:max="100"
-                            android:progressTint="@color/secondary_fixed_dim"
-                            android:progressBackgroundTint="#1A4edea3"/>
-                    </LinearLayout>
+                    
+                    <!-- Categories will be injected here dynamically -->
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
