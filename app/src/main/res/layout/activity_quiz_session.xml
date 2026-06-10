@@ -38,9 +38,10 @@
                 android:layout_centerInParent="true">
                 
                 <TextView
+                    android:id="@+id/tvQuestionProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Question 5 of 10"
+                    android:text="Question 1 of 5"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="@color/outline"
@@ -48,10 +49,11 @@
                     android:letterSpacing="0.05"/>
                 
                 <ProgressBar
+                    android:id="@+id/progressBarQuiz"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="120dp"
                     android:layout_height="6dp"
-                    android:progress="50"
+                    android:progress="20"
                     android:max="100"
                     android:progressTint="@color/primary"
                     android:progressBackgroundTint="#1A3f3bbd"
@@ -65,23 +67,11 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="70"
-                    android:progressDrawable="@android:drawable/progress_indeterminate_horizontal"
-                    android:background="@drawable/circle_border"
-                    android:backgroundTint="@color/surface_container_highest"
-                    android:progressTint="@color/tertiary"
-                    android:visibility="invisible"/>
-
                 <TextView
+                    android:id="@+id/tvTimer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="14"
+                    android:text="20"
                     android:gravity="center"
                     android:textColor="@color/tertiary"
                     android:textStyle="bold"
@@ -128,12 +118,13 @@
                     android:layout_height="16dp"
                     android:src="@android:drawable/ic_menu_compass"
                     app:tint="@color/primary" />
-                    
+                
                 <TextView
+                    android:id="@+id/tvCategoryChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="PHYSICS"
+                    android:text="QUIZ TOPIC"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="@color/on_surface_variant"
@@ -142,9 +133,10 @@
 
             <!-- Question Text -->
             <TextView
+                android:id="@+id/tvQuestionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Which fundamental force of nature is responsible for the orbit of planets around the sun?"
+                android:text="Question text loading..."
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/on_surface"
@@ -178,6 +170,7 @@
                         android:padding="16dp"
                         android:gravity="center_vertical">
                         <TextView
+                            android:id="@+id/tvOptionAIndex"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:text="A"
@@ -188,10 +181,11 @@
                             android:background="@drawable/rounded_bg"
                             android:backgroundTint="@color/surface_container"/>
                         <TextView
+                            android:id="@+id/tvOptionAText"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Electromagnetism"
+                            android:text="Option A"
                             android:textColor="@color/on_surface"
                             android:textSize="16sp"
                             android:layout_marginStart="16dp"/>
@@ -218,6 +212,7 @@
                         android:padding="16dp"
                         android:gravity="center_vertical">
                         <TextView
+                            android:id="@+id/tvOptionBIndex"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:text="B"
@@ -228,26 +223,27 @@
                             android:background="@drawable/rounded_bg"
                             android:backgroundTint="@color/surface_container"/>
                         <TextView
+                            android:id="@+id/tvOptionBText"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Strong Nuclear Force"
+                            android:text="Option B"
                             android:textColor="@color/on_surface"
                             android:textSize="16sp"
                             android:layout_marginStart="16dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Option C (Selected State) -->
+                <!-- Option C -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/optionC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp"
-                    app:cardBackgroundColor="#0D3f3bbd"
+                    app:strokeColor="@color/outline_variant"
+                    app:strokeWidth="1.5dp"
+                    app:cardBackgroundColor="@color/white"
                     android:layout_marginBottom="12dp"
                     android:clickable="true"
                     android:focusable="true">
@@ -258,29 +254,25 @@
                         android:padding="16dp"
                         android:gravity="center_vertical">
                         <TextView
+                            android:id="@+id/tvOptionCIndex"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:text="C"
                             android:gravity="center"
-                            android:textColor="@color/white"
+                            android:textColor="@color/outline"
                             android:textStyle="bold"
                             android:textSize="14sp"
                             android:background="@drawable/rounded_bg"
-                            android:backgroundTint="@color/primary"/>
+                            android:backgroundTint="@color/surface_container"/>
                         <TextView
+                            android:id="@+id/tvOptionCText"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Gravity"
-                            android:textColor="@color/primary"
-                            android:textStyle="bold"
+                            android:text="Option C"
+                            android:textColor="@color/on_surface"
                             android:textSize="16sp"
                             android:layout_marginStart="16dp"/>
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@android:drawable/checkbox_on_background"
-                            app:tint="@color/primary" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -304,6 +296,7 @@
                         android:padding="16dp"
                         android:gravity="center_vertical">
                         <TextView
+                            android:id="@+id/tvOptionDIndex"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:text="D"
@@ -314,10 +307,11 @@
                             android:background="@drawable/rounded_bg"
                             android:backgroundTint="@color/surface_container"/>
                         <TextView
+                            android:id="@+id/tvOptionDText"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Weak Nuclear Force"
+                            android:text="Option D"
                             android:textColor="@color/on_surface"
                             android:textSize="16sp"
                             android:layout_marginStart="16dp"/>
