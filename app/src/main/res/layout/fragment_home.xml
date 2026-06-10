@@ -58,9 +58,10 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true">
                     <TextView
+                        android:id="@+id/tvHomeStreak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7 Day Streak 🔥"
+                        android:text="0 Day Streak 🔥"
                         android:textStyle="bold"
                         android:textColor="@color/on_tertiary_fixed"
                         android:textSize="12sp"/>
@@ -89,6 +90,18 @@
                         android:src="@android:drawable/ic_menu_info_details"
                         app:tint="#80FFFFFF"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"/>
+
+                    <ImageView
+                        android:id="@+id/btnNextQuote"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@android:drawable/ic_media_next"
+                        app:tint="#80FFFFFF"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"/>
 
                     <TextView
@@ -174,9 +187,10 @@
                                 android:textColor="@color/on_surface_variant"
                                 android:textSize="12sp"/>
                             <TextView
+                                android:id="@+id/tvStatTotalQuestions"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="128"
+                                android:text="0"
                                 android:textColor="@color/on_surface"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
@@ -213,9 +227,10 @@
                                 android:textColor="@color/on_surface_variant"
                                 android:textSize="12sp"/>
                             <TextView
+                                android:id="@+id/tvStatSessions"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="42"
+                                android:text="0"
                                 android:textColor="@color/on_surface"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
@@ -261,9 +276,10 @@
                                 android:textColor="@color/on_surface_variant"
                                 android:textSize="12sp"/>
                             <TextView
+                                android:id="@+id/tvStatHours"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="15.5h"
+                                android:text="0h"
                                 android:textColor="@color/on_surface"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
@@ -300,9 +316,10 @@
                                 android:textColor="@color/on_surface_variant"
                                 android:textSize="12sp"/>
                             <TextView
+                                android:id="@+id/tvStatAccuracy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="88%"
+                                android:text="0%"
                                 android:textColor="@color/primary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
@@ -314,39 +331,7 @@
 
             </LinearLayout>
             
-            <!-- Motivational Quotes List Header -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="More Quotes"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"/>
-                
-                <Button
-                    android:id="@+id/btnRefreshQuotes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Refresh"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone"/>
-            </RelativeLayout>
-
-            <!-- Quotes RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvQuotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginBottom="80dp"/>
+            <!-- Removed More Quotes List and RecyclerView -->
 
         </LinearLayout>
     </ScrollView>

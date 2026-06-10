@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,12 +30,14 @@ public class HomeFragment extends Fragment {
     private TextView tvWelcomeName;
     private TextView quoteText;
     private TextView quoteAuthor;
-    private RecyclerView rvQuotes;
-    private Button btnRefreshQuotes;
+    private ImageView btnNextQuote;
     private DatabaseHelper dbHelper;
-    private QuoteAdapter quoteAdapter;
     private ExecutorService executorService;
     private Handler mainHandler;
+    
+    private List<Quote> currentQuotes = new ArrayList<>();
+    private int currentQuoteIndex = 0;
+    private Runnable quoteRunnable;
 
     @Nullable
     @Override
@@ -45,8 +47,7 @@ public class HomeFragment extends Fragment {
         tvWelcomeName = view.findViewById(R.id.tvWelcomeName);
         quoteText = view.findViewById(R.id.quoteText);
         quoteAuthor = view.findViewById(R.id.quoteAuthor);
-        rvQuotes = view.findViewById(R.id.rvQuotes);
-        btnRefreshQuotes = view.findViewById(R.id.btnRefreshQuotes);
+        btnNextQuote = view.findViewById(R.id.btnNextQuote);
 
         UserManager userManager = new UserManager(requireContext());
         tvWelcomeName.setText("Hello, " + userManager.getUsername() + "!");
@@ -55,11 +56,21 @@ public class HomeFragment extends Fragment {
         executorService = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
 
-        rvQuotes.setLayoutManager(new LinearLayoutManager(requireContext()));
-        quoteAdapter = new QuoteAdapter(new ArrayList<>());
-        rvQuotes.setAdapter(quoteAdapter);
+        TextView tvStatTotalQuestions = view.findViewById(R.id.tvStatTotalQuestions);
+        TextView tvStatSessions = view.findViewById(R.id.tvStatSessions);
+        TextView tvStatHours = view.findViewById(R.id.tvStatHours);
+        TextView tvStatAccuracy = view.findViewById(R.id.tvStatAccuracy);
+        TextView tvHomeStreak = view.findViewById(R.id.tvHomeStreak);
 
-        btnRefreshQuotes.setOnClickListener(v -> fetchQuotesFromApi());
+        loadDynamicStats(tvStatTotalQuestions, tvStatSessions, tvStatHours, tvStatAccuracy, tvHomeStreak, userManager.getUsername());
+
+        btnNextQuote.setOnClickListener(v -> {
+            if (!currentQuotes.isEmpty()) {
+                currentQuoteIndex = (currentQuoteIndex + 1) % currentQuotes.size();
+                displayCurrentQuote();
+                resetQuoteTimer();
+            }
+        });
 
         fetchQuotesFromApi();
 
@@ -67,7 +78,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchQuotesFromApi() {
-        btnRefreshQuotes.setVisibility(View.GONE);
+        btnNextQuote.setVisibility(View.GONE);
         quoteText.setText("Loading motivation...");
         quoteAuthor.setText("");
 
@@ -97,8 +108,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void handleErrorState() {
-        btnRefreshQuotes.setVisibility(View.VISIBLE);
-        
         // Load from local database using Background Thread
         executorService.execute(() -> {
             List<Quote> localQuotes = dbHelper.getAllQuotes();
@@ -117,13 +126,51 @@ public class HomeFragment extends Fragment {
 
     private void updateUI(List<Quote> quotes) {
         if (!quotes.isEmpty()) {
-            Quote firstQuote = quotes.get(0);
-            quoteText.setText("\"" + firstQuote.getText() + "\"");
-            quoteAuthor.setText("— " + firstQuote.getAuthor());
+            this.currentQuotes = quotes;
+            this.currentQuoteIndex = 0;
+            btnNextQuote.setVisibility(View.VISIBLE);
+            displayCurrentQuote();
+            startQuoteTimer();
+        }
+    }
 
-            // Display the rest in the RecyclerView
-            List<Quote> restQuotes = quotes.subList(1, quotes.size());
-            quoteAdapter.updateData(restQuotes);
+    private void displayCurrentQuote() {
+        if (!currentQuotes.isEmpty() && currentQuoteIndex < currentQuotes.size()) {
+            Quote q = currentQuotes.get(currentQuoteIndex);
+            quoteText.setText("\"" + q.getText() + "\"");
+            quoteAuthor.setText("— " + q.getAuthor());
+        }
+    }
+
+    private void startQuoteTimer() {
+        if (quoteRunnable == null) {
+            quoteRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (!currentQuotes.isEmpty()) {
+                        currentQuoteIndex = (currentQuoteIndex + 1) % currentQuotes.size();
+                        displayCurrentQuote();
+                    }
+                    mainHandler.postDelayed(this, 60000); // 1 minute
+                }
+            };
+        }
+        mainHandler.removeCallbacks(quoteRunnable);
+        mainHandler.postDelayed(quoteRunnable, 60000);
+    }
+
+    private void resetQuoteTimer() {
+        if (quoteRunnable != null) {
+            mainHandler.removeCallbacks(quoteRunnable);
+            mainHandler.postDelayed(quoteRunnable, 60000);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mainHandler != null && quoteRunnable != null) {
+            mainHandler.removeCallbacks(quoteRunnable);
         }
     }
 
@@ -133,5 +180,52 @@ public class HomeFragment extends Fragment {
         if (executorService != null) {
             executorService.shutdown();
         }
+    }
+
+    private void loadDynamicStats(TextView tvTotal, TextView tvSessions, TextView tvHours, TextView tvAccuracy, TextView tvStreak, String username) {
+        executorService.execute(() -> {
+            List<QuizHistory> history = dbHelper.getQuizHistory(username);
+            
+            int totalQuestions = 0;
+            int totalCorrect = 0;
+            int sessions = history.size();
+            for (QuizHistory h : history) {
+                totalQuestions += h.getTotalQuestions();
+                totalCorrect += h.getScore();
+            }
+            
+            int accuracy = 0;
+            if (totalQuestions > 0) {
+                accuracy = Math.round(((float) totalCorrect / totalQuestions) * 100f);
+            }
+            
+            double hoursVal = (sessions * 5.0) / 60.0;
+            String hoursStr = String.format(java.util.Locale.US, "%.1fh", hoursVal);
+            
+            int streakDays = 0;
+            java.util.Set<String> uniqueDates = new java.util.HashSet<>();
+            for (QuizHistory h : history) {
+                String ts = h.getTimestamp();
+                if (ts != null && ts.contains(",")) {
+                    String datePart = ts.split(",")[0].trim();
+                    uniqueDates.add(datePart);
+                }
+            }
+            streakDays = uniqueDates.size();
+            
+            final int finalQuestions = totalQuestions;
+            final int finalSessions = sessions;
+            final String finalHours = hoursStr;
+            final int finalAccuracy = accuracy;
+            final int finalStreak = streakDays;
+            
+            mainHandler.post(() -> {
+                if (tvTotal != null) tvTotal.setText(String.valueOf(finalQuestions));
+                if (tvSessions != null) tvSessions.setText(String.valueOf(finalSessions));
+                if (tvHours != null) tvHours.setText(finalHours);
+                if (tvAccuracy != null) tvAccuracy.setText(finalAccuracy + "%");
+                if (tvStreak != null) tvStreak.setText(finalStreak + " Day Streak 🔥");
+            });
+        });
     }
 }
