@@ -1,18 +1,20 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.ai;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import com.example.cogniquest.databinding.ActivityAiAssistantBinding;
-import com.google.android.material.navigation.NavigationBarView;
+import com.example.cogniquest.databinding.FragmentAiAssistantBinding;
+import com.example.cogniquest.BuildConfig;
+import com.example.cogniquest.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,17 +30,22 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AiAssistantActivity extends AppCompatActivity {
+public class AiAssistantFragment extends Fragment {
 
-    private ActivityAiAssistantBinding binding;
+    private FragmentAiAssistantBinding binding;
     private OkHttpClient client;
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityAiAssistantBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentAiAssistantBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         client = new OkHttpClient.Builder()
                 .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
@@ -63,40 +70,6 @@ public class AiAssistantActivity extends AppCompatActivity {
                 binding.etMessage.setText("");
             }
         });
-
-
-
-        binding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    Intent intent = new Intent(AiAssistantActivity.this, HomeDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra("SELECT_TAB", R.id.nav_home);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                } else if (itemId == R.id.nav_ai) {
-                    return true;
-                } else if (itemId == R.id.nav_progress) {
-                    Intent intent = new Intent(AiAssistantActivity.this, LearningProgressActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                } else if (itemId == R.id.nav_profile) {
-                    Intent intent = new Intent(AiAssistantActivity.this, HomeDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra("SELECT_TAB", R.id.nav_profile);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        binding.bottomNavigation.setSelectedItemId(R.id.nav_ai);
     }
 
     private void sendMessageToGemini(String message) {
@@ -138,7 +111,9 @@ public class AiAssistantActivity extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    runOnUiThread(() -> addAiMessageToUI("Error communicating with AI: " + e.getMessage()));
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() -> addAiMessageToUI("Error communicating with AI: " + e.getMessage()));
+                    }
                 }
 
                 @Override
@@ -154,14 +129,20 @@ public class AiAssistantActivity extends AppCompatActivity {
                                 JSONArray partsArray = contentObj.getJSONArray("parts");
                                 if (partsArray.length() > 0) {
                                     String text = partsArray.getJSONObject(0).getString("text");
-                                    runOnUiThread(() -> addAiMessageToUI(text));
+                                    if (getActivity() != null) {
+                                        getActivity().runOnUiThread(() -> addAiMessageToUI(text));
+                                    }
                                 }
                             }
                         } catch (JSONException e) {
-                            runOnUiThread(() -> addAiMessageToUI("Error parsing response: " + e.getMessage()));
+                            if (getActivity() != null) {
+                                getActivity().runOnUiThread(() -> addAiMessageToUI("Error parsing response: " + e.getMessage()));
+                            }
                         }
                     } else {
-                        runOnUiThread(() -> addAiMessageToUI("Error: " + response.code() + " - " + response.message()));
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> addAiMessageToUI("Error: " + response.code() + " - " + response.message()));
+                        }
                     }
                 }
             });
@@ -172,8 +153,8 @@ public class AiAssistantActivity extends AppCompatActivity {
     }
 
     private void addUserMessageToUI(String message) {
-        // Simple programmatically created TextView for User Message
-        LinearLayout layout = new LinearLayout(this);
+        if (getContext() == null) return;
+        LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -183,13 +164,13 @@ public class AiAssistantActivity extends AppCompatActivity {
         params.gravity = android.view.Gravity.END;
         layout.setLayoutParams(params);
 
-        TextView label = new TextView(this);
+        TextView label = new TextView(requireContext());
         label.setText("You");
         label.setTextSize(12);
         label.setTextColor(getResources().getColor(R.color.outline_variant));
         label.setGravity(android.view.Gravity.END);
         
-        TextView text = new TextView(this);
+        TextView text = new TextView(requireContext());
         text.setText(formatMarkdown(message));
         text.setTextColor(getResources().getColor(R.color.on_primary));
         text.setBackgroundResource(R.drawable.chat_bubble_background);
@@ -204,8 +185,8 @@ public class AiAssistantActivity extends AppCompatActivity {
     }
 
     private void addAiMessageToUI(String message) {
-        // Simple programmatically created TextView for AI Message
-        LinearLayout layout = new LinearLayout(this);
+        if (getContext() == null) return;
+        LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -214,12 +195,12 @@ public class AiAssistantActivity extends AppCompatActivity {
         params.setMargins(0, 16, 100, 16);
         layout.setLayoutParams(params);
 
-        TextView label = new TextView(this);
+        TextView label = new TextView(requireContext());
         label.setText("EduMaster AI");
         label.setTextSize(12);
         label.setTextColor(getResources().getColor(R.color.outline_variant));
 
-        TextView text = new TextView(this);
+        TextView text = new TextView(requireContext());
         text.setText(formatMarkdown(message));
         text.setTextColor(getResources().getColor(R.color.on_surface));
         text.setBackgroundResource(R.drawable.chat_bubble_background);
@@ -238,25 +219,19 @@ public class AiAssistantActivity extends AppCompatActivity {
         
         String html = text;
         
-        // 1. Headings (### Heading, ## Heading, # Heading)
         html = html.replaceAll("(?m)^###\\s+(.*?)$", "<br><b>$1</b><br>");
         html = html.replaceAll("(?m)^##\\s+(.*?)$", "<br><b>$1</b><br>");
         html = html.replaceAll("(?m)^#\\s+(.*?)$", "<br><b>$1</b><br>");
         
-        // 1.5. Horizontal Divider (---)
         html = html.replaceAll("(?m)^---+$", "<br><font color='#888888'>────────────────────────────────</font><br>");
         
-        // 2. Lists starting with * or -
         html = html.replaceAll("(?m)^\\*\\s+(.*?)$", "• $1");
         html = html.replaceAll("(?m)^-\\s+(.*?)$", "• $1");
         
-        // 3. Bold (**text**) with multiline support
         html = html.replaceAll("(?s)\\*\\*(.*?)\\*\\*", "<b>$1</b>");
         
-        // 4. Italic (*text*) with multiline support
         html = html.replaceAll("(?s)\\*(.*?)\\*", "<i>$1</i>");
         
-        // 5. Replace newlines with <br>
         html = html.replace("\n", "<br>");
         
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -267,6 +242,16 @@ public class AiAssistantActivity extends AppCompatActivity {
     }
 
     private void scrollToBottom() {
-        binding.chatScrollView.post(() -> binding.chatScrollView.fullScroll(View.FOCUS_DOWN));
+        binding.chatScrollView.post(() -> {
+            if (binding != null && binding.chatScrollView != null) {
+                binding.chatScrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

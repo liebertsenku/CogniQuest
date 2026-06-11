@@ -1,67 +1,50 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.quiz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import com.example.cogniquest.databinding.ActivityLearningProgressBinding;
-import com.google.android.material.navigation.NavigationBarView;
+import com.example.cogniquest.databinding.FragmentLearningProgressBinding;
+import com.example.cogniquest.database.DatabaseHelper;
+import com.example.cogniquest.utils.UserManager;
+import com.example.cogniquest.model.Quiz;
+import com.example.cogniquest.model.QuizHistory;
+import com.example.cogniquest.ui.adapter.QuizAdapter;
+import com.example.cogniquest.ui.quiz.QuizSessionActivity;
+import com.example.cogniquest.ui.quiz.QuizHistoryActivity;
+import com.example.cogniquest.R;
 
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Locale;
 
-public class LearningProgressActivity extends AppCompatActivity {
+public class LearningProgressFragment extends Fragment {
 
-    private ActivityLearningProgressBinding binding;
+    private FragmentLearningProgressBinding binding;
     private DatabaseHelper databaseHelper;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityLearningProgressBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentLearningProgressBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
-        databaseHelper = new DatabaseHelper(this);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        binding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    Intent intent = new Intent(LearningProgressActivity.this, HomeDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra("SELECT_TAB", R.id.nav_home);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                } else if (itemId == R.id.nav_progress) {
-                    return true; // Already here
-                } else if (itemId == R.id.nav_profile) {
-                    Intent intent = new Intent(LearningProgressActivity.this, HomeDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra("SELECT_TAB", R.id.nav_profile);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                } else if (itemId == R.id.nav_ai) {
-                    Intent intent = new Intent(LearningProgressActivity.this, AiAssistantActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        binding.bottomNavigation.setSelectedItemId(R.id.nav_progress);
+        databaseHelper = new DatabaseHelper(requireContext());
 
         // Load quizzes
-        java.util.List<Quiz> quizList = databaseHelper.getAllQuizzes();
+        List<Quiz> quizList = databaseHelper.getAllQuizzes();
         
         QuizAdapter quizAdapter = new QuizAdapter(quizList, new QuizAdapter.OnQuizClickListener() {
             @Override
@@ -72,31 +55,34 @@ public class LearningProgressActivity extends AppCompatActivity {
 
             @Override
             public void onCardClick(Quiz quiz) {
-                Intent intent = new Intent(LearningProgressActivity.this, QuizSessionActivity.class);
+                Intent intent = new Intent(requireContext(), QuizSessionActivity.class);
                 intent.putExtra("quiz_id", quiz.getId());
                 intent.putExtra("quiz_title", quiz.getTitle());
                 intent.putExtra("quiz_category", quiz.getCategory());
                 startActivity(intent);
             }
-        }, false); // Pass false to hide edit/delete admin controls
+        }, false);
 
-        binding.recyclerViewQuizzes.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
+        binding.recyclerViewQuizzes.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(requireContext()));
         binding.recyclerViewQuizzes.setAdapter(quizAdapter);
 
         binding.tvViewAllHistory.setOnClickListener(v -> {
-            Intent intent = new Intent(LearningProgressActivity.this, QuizHistoryActivity.class);
+            Intent intent = new Intent(requireContext(), QuizHistoryActivity.class);
             startActivity(intent);
         });
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        loadDynamicStats(databaseHelper);
+        if (databaseHelper != null) {
+            loadDynamicStats(databaseHelper);
+        }
     }
 
     private void loadDynamicStats(DatabaseHelper dbHelper) {
-        UserManager userManager = new UserManager(this);
+        if (getContext() == null || binding == null) return;
+        UserManager userManager = new UserManager(requireContext());
         String username = userManager.getUsername();
         List<QuizHistory> history = dbHelper.getQuizHistory(username);
 
@@ -152,12 +138,18 @@ public class LearningProgressActivity extends AppCompatActivity {
 
         // Recent History
         if (!history.isEmpty()) {
-            binding.cvRecentQuiz.setVisibility(android.view.View.VISIBLE);
+            binding.cvRecentQuiz.setVisibility(View.VISIBLE);
             QuizHistory latest = history.get(0);
             binding.tvRecentQuizTitle.setText(latest.getQuizTitle());
             binding.tvRecentQuizSubtitle.setText(latest.getTimestamp() + " • " + latest.getScore() + "/" + latest.getTotalQuestions() + " correct");
         } else {
-            binding.cvRecentQuiz.setVisibility(android.view.View.GONE);
+            binding.cvRecentQuiz.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
