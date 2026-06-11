@@ -72,6 +72,7 @@ public class ManageQuizzesActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.nav_home) {
                     startActivity(new Intent(ManageQuizzesActivity.this, AdminDashboardActivity.class));
+                    overridePendingTransition(0, 0);
                     finish();
                     return true;
                 } else if (itemId == R.id.nav_logout) {
@@ -113,6 +114,23 @@ public class ManageQuizzesActivity extends AppCompatActivity {
         });
         binding.recyclerViewQuizzes.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewQuizzes.setAdapter(quizAdapter);
+
+        if (binding.etSearch != null) {
+            binding.etSearch.addTextChangedListener(new android.text.TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (quizAdapter != null) {
+                        quizAdapter.filter(s.toString(), quizList);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(android.text.Editable s) {}
+            });
+        }
     }
 
     private void refreshData() {

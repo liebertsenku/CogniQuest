@@ -53,6 +53,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminDashboardActivity.this, ManageQuizzesActivity.class));
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -62,6 +63,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminDashboardActivity.this, ManageQuizzesActivity.class);
                 intent.putExtra("trigger_add", true);
                 startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -76,6 +78,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminDashboardActivity.this, ManageQuizzesActivity.class));
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -87,6 +90,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     return true; // Already here
                 } else if (itemId == R.id.nav_manage_quizzes) {
                     startActivity(new Intent(AdminDashboardActivity.this, ManageQuizzesActivity.class));
+                    overridePendingTransition(0, 0);
                     finish();
                     return true;
                 } else if (itemId == R.id.nav_logout) {
