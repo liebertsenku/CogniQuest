@@ -1,4 +1,12 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.admin;
+import com.example.cogniquest.R;
+import com.example.cogniquest.model.Question;
+import com.example.cogniquest.model.Quiz;
+import com.example.cogniquest.model.Difficulty;
+import com.example.cogniquest.database.DatabaseHelper;
+import com.example.cogniquest.utils.UserManager;
+import com.example.cogniquest.ui.adapter.QuizAdapter;
+import com.example.cogniquest.ui.auth.LoginActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -170,7 +178,13 @@ public class ManageQuizzesActivity extends AppCompatActivity {
 
         builder.setView(layout);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton("Save", null);
+        builder.setNegativeButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String title = etTitle.getText().toString().trim();
             String desc = etDesc.getText().toString().trim();
             String cat = etCategory.getText().toString().trim();
@@ -178,17 +192,25 @@ public class ManageQuizzesActivity extends AppCompatActivity {
             Difficulty difficulty = (Difficulty) spinnerDifficulty.getSelectedItem();
 
             if (title.isEmpty() || cat.isEmpty() || qStr.isEmpty()) {
-                Toast.makeText(this, "Title, Category, and Question Count required", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Semua bidang wajib diisi", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int qCount = Integer.parseInt(qStr);
+            int qCount;
+            try {
+                qCount = Integer.parseInt(qStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Jumlah pertanyaan harus berupa angka", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (quiz == null) {
-                // Add new
-                DatabaseHelper db = new DatabaseHelper(this);
-                db.addQuiz(new Quiz(title, desc, cat, qCount, difficulty));
-                Toast.makeText(this, "Quiz added", Toast.LENGTH_SHORT).show();
+                if (qCount <= 0) {
+                    Toast.makeText(this, "Jumlah pertanyaan minimal harus 1", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                dialog.dismiss();
+                startQuestionWizard(title, desc, cat, qCount, difficulty);
             } else {
                 // Edit
                 quiz.setTitle(title);
@@ -199,11 +221,107 @@ public class ManageQuizzesActivity extends AppCompatActivity {
                 DatabaseHelper db = new DatabaseHelper(this);
                 db.updateQuiz(quiz);
                 Toast.makeText(this, "Quiz updated", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                refreshData();
             }
-            refreshData();
+        });
+    }
+
+    private void startQuestionWizard(String title, String desc, String cat, int totalQuestions, Difficulty difficulty) {
+        java.util.List<Question> tempQuestions = new java.util.ArrayList<>();
+        showQuestionWizardStep(title, desc, cat, totalQuestions, difficulty, tempQuestions, 1);
+    }
+
+    private void showQuestionWizardStep(String title, String desc, String cat, int totalQuestions, Difficulty difficulty, java.util.List<Question> tempQuestions, int currentStep) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Tambah Pertanyaan (" + currentStep + "/" + totalQuestions + ")");
+        builder.setCancelable(false);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(50, 40, 50, 10);
+
+        final EditText etText = new EditText(this);
+        etText.setHint("Teks Pertanyaan");
+        layout.addView(etText);
+
+        final EditText etOptionA = new EditText(this);
+        etOptionA.setHint("Pilihan A");
+        layout.addView(etOptionA);
+
+        final EditText etOptionB = new EditText(this);
+        etOptionB.setHint("Pilihan B");
+        layout.addView(etOptionB);
+
+        final EditText etOptionC = new EditText(this);
+        etOptionC.setHint("Pilihan C");
+        layout.addView(etOptionC);
+
+        final EditText etOptionD = new EditText(this);
+        etOptionD.setHint("Pilihan D");
+        layout.addView(etOptionD);
+
+        final android.widget.Spinner spinnerCorrect = new android.widget.Spinner(this);
+        String[] options = {"A", "B", "C", "D"};
+        android.widget.ArrayAdapter<String> spinnerAdapter = new android.widget.ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, options);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCorrect.setAdapter(spinnerAdapter);
+        layout.addView(spinnerCorrect);
+
+        builder.setView(layout);
+
+        builder.setPositiveButton(currentStep == totalQuestions ? "Selesai" : "Lanjut", null);
+
+        builder.setNegativeButton("Batal Buat Kuis", (dialog, which) -> {
+            new AlertDialog.Builder(this)
+                .setTitle("Batal Membuat Kuis?")
+                .setMessage("Semua pertanyaan yang telah dimasukkan akan terhapus.")
+                .setPositiveButton("Ya, Batal", (d, w) -> {
+                    Toast.makeText(this, "Pembuatan kuis dibatalkan", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Kembali", (d, w) -> {
+                    showQuestionWizardStep(title, desc, cat, totalQuestions, difficulty, tempQuestions, currentStep);
+                })
+                .show();
         });
 
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String text = etText.getText().toString().trim();
+            String optA = etOptionA.getText().toString().trim();
+            String optB = etOptionB.getText().toString().trim();
+            String optC = etOptionC.getText().toString().trim();
+            String optD = etOptionD.getText().toString().trim();
+            String correct = (String) spinnerCorrect.getSelectedItem();
+
+            if (text.isEmpty() || optA.isEmpty() || optB.isEmpty() || optC.isEmpty() || optD.isEmpty()) {
+                Toast.makeText(this, "Semua bidang pertanyaan harus diisi", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            tempQuestions.add(new Question(-1, text, optA, optB, optC, optD, correct));
+            dialog.dismiss();
+
+            if (currentStep < totalQuestions) {
+                showQuestionWizardStep(title, desc, cat, totalQuestions, difficulty, tempQuestions, currentStep + 1);
+            } else {
+                DatabaseHelper db = new DatabaseHelper(this);
+                long newQuizId = db.addQuiz(new Quiz(title, desc, cat, totalQuestions, difficulty));
+                
+                if (newQuizId != -1) {
+                    for (Question q : tempQuestions) {
+                        q.setQuizId((int) newQuizId);
+                        db.addQuestion(q);
+                    }
+                    Toast.makeText(this, "Kuis berhasil dibuat dengan " + totalQuestions + " pertanyaan!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Gagal membuat kuis", Toast.LENGTH_SHORT).show();
+                }
+                refreshData();
+            }
+        });
     }
 }

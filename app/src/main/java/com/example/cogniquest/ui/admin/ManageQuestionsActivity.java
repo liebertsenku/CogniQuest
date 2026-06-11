@@ -1,4 +1,9 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.admin;
+import com.example.cogniquest.R;
+import com.example.cogniquest.model.Question;
+import com.example.cogniquest.model.Quiz;
+import com.example.cogniquest.database.DatabaseHelper;
+import com.example.cogniquest.ui.adapter.QuestionAdapter;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -163,7 +168,13 @@ public class ManageQuestionsActivity extends AppCompatActivity {
 
         builder.setView(layout);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton("Save", null);
+        builder.setNegativeButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String text = etText.getText().toString().trim();
             String optA = etOptionA.getText().toString().trim();
             String optB = etOptionB.getText().toString().trim();
@@ -193,10 +204,8 @@ public class ManageQuestionsActivity extends AppCompatActivity {
                 db.updateQuestion(question);
                 Toast.makeText(this, "Question updated", Toast.LENGTH_SHORT).show();
             }
+            dialog.dismiss();
             refreshData();
         });
-
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
     }
 }
