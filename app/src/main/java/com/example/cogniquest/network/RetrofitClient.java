@@ -1,4 +1,4 @@
-package com.example.cogniquest;
+package com.example.cogniquest.network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

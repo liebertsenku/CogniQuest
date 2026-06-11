@@ -1,4 +1,5 @@
 package com.example.cogniquest;
+import com.example.cogniquest.utils.UserManager;
 
 import android.app.Application;
 import androidx.appcompat.app.AppCompatDelegate;

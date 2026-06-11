@@ -1,4 +1,10 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.admin;
+import com.example.cogniquest.R;
+import com.example.cogniquest.model.Quiz;
+import com.example.cogniquest.database.DatabaseHelper;
+import com.example.cogniquest.utils.UserManager;
+import com.example.cogniquest.ui.adapter.QuizAdapter;
+import com.example.cogniquest.ui.auth.LoginActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

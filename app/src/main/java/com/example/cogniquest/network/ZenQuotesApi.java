@@ -1,4 +1,5 @@
-package com.example.cogniquest;
+package com.example.cogniquest.network;
+import com.example.cogniquest.model.Quote;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.auth;
+import com.example.cogniquest.R;
+import com.example.cogniquest.utils.UserManager;
 
 import android.content.Intent;
 import android.os.Bundle;

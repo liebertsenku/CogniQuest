@@ -1,4 +1,9 @@
-package com.example.cogniquest;
+package com.example.cogniquest.database;
+import com.example.cogniquest.model.Question;
+import com.example.cogniquest.model.Quiz;
+import com.example.cogniquest.model.QuizHistory;
+import com.example.cogniquest.model.Quote;
+import com.example.cogniquest.model.Difficulty;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,7 +17,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "CogniQuest.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     public static final String TABLE_QUIZZES = "quizzes";
     public static final String COLUMN_ID = "id";
@@ -106,45 +111,112 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     private void insertDummyData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TITLE, "Ancient History Mysteries");
-        values.put(COLUMN_DESC, "Explore the unknown events of ancient times.");
-        values.put(COLUMN_CATEGORY, "History");
+        values.put(COLUMN_TITLE, "Misteri Sejarah Kuno");
+        values.put(COLUMN_DESC, "Jelajahi peristiwa-peristiwa tak dikenal di zaman kuno.");
+        values.put(COLUMN_CATEGORY, "Sejarah");
         values.put(COLUMN_QUESTIONS_COUNT, 3);
         values.put(COLUMN_DIFFICULTY, "Hard");
         long q1Id = db.insert(TABLE_QUIZZES, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Pop Culture 2023");
-        values.put(COLUMN_DESC, "Test your knowledge on movies, music, and trends.");
-        values.put(COLUMN_CATEGORY, "Arts");
+        values.put(COLUMN_TITLE, "Budaya Populer 2023");
+        values.put(COLUMN_DESC, "Uji pengetahuan Anda tentang film, musik, dan tren.");
+        values.put(COLUMN_CATEGORY, "Seni");
         values.put(COLUMN_QUESTIONS_COUNT, 3);
         values.put(COLUMN_DIFFICULTY, "Medium");
         long q2Id = db.insert(TABLE_QUIZZES, null, values);
         
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Space Exploration Basics");
-        values.put(COLUMN_DESC, "A beginner's guide to the stars.");
-        values.put(COLUMN_CATEGORY, "Science");
+        values.put(COLUMN_TITLE, "Dasar-Dasar Eksplorasi Luar Angkasa");
+        values.put(COLUMN_DESC, "Panduan pemula untuk mengenal bintang-bintang.");
+        values.put(COLUMN_CATEGORY, "Sains");
         values.put(COLUMN_QUESTIONS_COUNT, 5);
         values.put(COLUMN_DIFFICULTY, "Easy");
         long q3Id = db.insert(TABLE_QUIZZES, null, values);
 
+        values = new ContentValues();
+        values.put(COLUMN_TITLE, "Pemrograman & Komputer");
+        values.put(COLUMN_DESC, "Uji pengetahuan Anda tentang pemrograman dan perangkat keras komputer.");
+        values.put(COLUMN_CATEGORY, "Teknologi");
+        values.put(COLUMN_QUESTIONS_COUNT, 4);
+        values.put(COLUMN_DIFFICULTY, "Medium");
+        long q4Id = db.insert(TABLE_QUIZZES, null, values);
+
+        values = new ContentValues();
+        values.put(COLUMN_TITLE, "Ibu Kota & Landmark Dunia");
+        values.put(COLUMN_DESC, "Apakah Anda tahu di mana letak kota-kota dan keajaiban alam dunia?");
+        values.put(COLUMN_CATEGORY, "Geografi");
+        values.put(COLUMN_QUESTIONS_COUNT, 4);
+        values.put(COLUMN_DIFFICULTY, "Easy");
+        long q5Id = db.insert(TABLE_QUIZZES, null, values);
+
+        values = new ContentValues();
+        values.put(COLUMN_TITLE, "Buku Klasik & Penulisnya");
+        values.put(COLUMN_DESC, "Selami dunia cerita dan penulis legendaris.");
+        values.put(COLUMN_CATEGORY, "Sastra");
+        values.put(COLUMN_QUESTIONS_COUNT, 3);
+        values.put(COLUMN_DIFFICULTY, "Hard");
+        long q6Id = db.insert(TABLE_QUIZZES, null, values);
+
+        values = new ContentValues();
+        values.put(COLUMN_TITLE, "Teka-teki Logika & Asah Otak");
+        values.put(COLUMN_DESC, "Uji deduksi matematika dan pemikiran logis Anda.");
+        values.put(COLUMN_CATEGORY, "Matematika");
+        values.put(COLUMN_QUESTIONS_COUNT, 3);
+        values.put(COLUMN_DIFFICULTY, "Medium");
+        long q7Id = db.insert(TABLE_QUIZZES, null, values);
+
+        values = new ContentValues();
+        values.put(COLUMN_TITLE, "Trivia Olimpiade");
+        values.put(COLUMN_DESC, "Seberapa banyak yang Anda ketahui tentang sejarah Olimpiade?");
+        values.put(COLUMN_CATEGORY, "Olahraga");
+        values.put(COLUMN_QUESTIONS_COUNT, 3);
+        values.put(COLUMN_DIFFICULTY, "Medium");
+        long q8Id = db.insert(TABLE_QUIZZES, null, values);
+
         // Insert Questions for Space Exploration Basics (Easy)
-        insertQuestionHelper(db, q3Id, "Which planet is closest to the Sun?", "Venus", "Mercury", "Earth", "Mars", "B");
-        insertQuestionHelper(db, q3Id, "What is the largest planet in our solar system?", "Saturn", "Jupiter", "Neptune", "Uranus", "B");
-        insertQuestionHelper(db, q3Id, "Which planet is known as the Red Planet?", "Mars", "Venus", "Jupiter", "Mercury", "A");
-        insertQuestionHelper(db, q3Id, "What galaxy is Earth located in?", "Andromeda", "Milky Way", "Triangulum", "Sombrero", "B");
-        insertQuestionHelper(db, q3Id, "Who was the first person to step on the Moon?", "Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "John Glenn", "C");
+        insertQuestionHelper(db, q3Id, "Planet mana yang paling dekat dengan Matahari?", "Venus", "Merkurius", "Bumi", "Mars", "B");
+        insertQuestionHelper(db, q3Id, "Apa planet terbesar di tata surya kita?", "Saturnus", "Jupiter", "Neptunus", "Uranus", "B");
+        insertQuestionHelper(db, q3Id, "Planet mana yang dikenal sebagai Planet Merah?", "Mars", "Venus", "Jupiter", "Merkurius", "A");
+        insertQuestionHelper(db, q3Id, "Di galaksi mana Bumi berada?", "Andromeda", "Bima Sakti", "Triangulum", "Sombrero", "B");
+        insertQuestionHelper(db, q3Id, "Siapa orang pertama yang menginjakkan kaki di Bulan?", "Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "John Glenn", "C");
 
         // Insert Questions for Pop Culture 2023 (Medium)
-        insertQuestionHelper(db, q2Id, "Which movie won the Oscar for Best Picture in 2023?", "Avatar: The Way of Water", "Top Gun: Maverick", "Everything Everywhere All at Once", "The Banshees of Inisherin", "C");
-        insertQuestionHelper(db, q2Id, "Which artist released the highly acclaimed album 'Midnights'?", "Taylor Swift", "Beyonce", "Adele", "Harry Styles", "A");
-        insertQuestionHelper(db, q2Id, "What was the highest-grossing film of 2023?", "Oppenheimer", "The Super Mario Bros. Movie", "Barbie", "Guardians of the Galaxy Vol. 3", "C");
+        insertQuestionHelper(db, q2Id, "Film mana yang memenangkan Oscar untuk Film Terbaik pada tahun 2023?", "Avatar: The Way of Water", "Top Gun: Maverick", "Everything Everywhere All at Once", "The Banshees of Inisherin", "C");
+        insertQuestionHelper(db, q2Id, "Artis mana yang merilis album terkenal 'Midnights'?", "Taylor Swift", "Beyonce", "Adele", "Harry Styles", "A");
+        insertQuestionHelper(db, q2Id, "Apa film dengan pendapatan tertinggi di tahun 2023?", "Oppenheimer", "The Super Mario Bros. Movie", "Barbie", "Guardians of the Galaxy Vol. 3", "C");
 
         // Insert Questions for Ancient History Mysteries (Hard)
-        insertQuestionHelper(db, q1Id, "The Great Pyramid of Giza was built for which Egyptian Pharaoh?", "Tutankhamun", "Khufu", "Ramses II", "Akhenaten", "B");
-        insertQuestionHelper(db, q1Id, "Which ancient civilization built the mountain city of Machu Picchu?", "Aztecs", "Mayans", "Incas", "Olmecs", "C");
-        insertQuestionHelper(db, q1Id, "Who was the first Emperor of the Roman Empire?", "Julius Caesar", "Nero", "Marcus Aurelius", "Augustus", "D");
+        insertQuestionHelper(db, q1Id, "Piramida Agung Giza dibangun untuk Firaun Mesir yang mana?", "Tutankhamun", "Khufu", "Ramses II", "Akhenaten", "B");
+        insertQuestionHelper(db, q1Id, "Peradaban kuno mana yang membangun kota pegunungan Picchu Picchu?", "Aztec", "Maya", "Inca", "Olmec", "C");
+        insertQuestionHelper(db, q1Id, "Siapa Kaisar pertama Kekaisaran Romawi?", "Julius Caesar", "Nero", "Marcus Aurelius", "Augustus", "D");
+
+        // Insert Questions for Coding & Computers (Medium)
+        insertQuestionHelper(db, q4Id, "Apa kepanjangan dari HTTP?", "Hypertext Transfer Protocol", "High Text Transfer Process", "Hyperlink Text Technology Protocol", "Home Tool Transfer Procedure", "A");
+        insertQuestionHelper(db, q4Id, "Bahasa pemrograman apa yang saat ini paling banyak digunakan untuk pengembangan Android?", "Swift", "Kotlin", "C#", "Python", "B");
+        insertQuestionHelper(db, q4Id, "Apa otak utama dari sebuah komputer?", "RAM", "GPU", "CPU", "SSD", "C");
+        insertQuestionHelper(db, q4Id, "Siapa yang dikenal sebagai bapak ilmu komputer?", "Bill Gates", "Steve Jobs", "Alan Turing", "Ada Lovelace", "C");
+
+        // Insert Questions for World Capitals & Landmarks (Easy)
+        insertQuestionHelper(db, q5Id, "What is the capital of Japan?", "Seoul", "Beijing", "Tokyo", "Kyoto", "C");
+        insertQuestionHelper(db, q5Id, "Sungai mana yang terpanjang di dunia?", "Amazon", "Nil", "Yangtze", "Mississippi", "B");
+        insertQuestionHelper(db, q5Id, "Di negara mana Menara Eiffel berada?", "Jerman", "Italia", "Prancis", "Spanyol", "C");
+        insertQuestionHelper(db, q5Id, "Manakah benua terkecil berdasarkan luas wilayah daratan?", "Eropa", "Australia", "Antartika", "Amerika Selatan", "B");
+
+        // Insert Questions for Classic Books & Authors (Hard)
+        insertQuestionHelper(db, q6Id, "Siapa yang menulis drama 'Romeo dan Juliet'?", "Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen", "B");
+        insertQuestionHelper(db, q6Id, "Siapa nama kapten dalam novel 'Moby-Dick' karya Herman Melville?", "Kapten Ahab", "Kapten Hook", "Kapten Nemo", "Kapten Sparrow", "A");
+        insertQuestionHelper(db, q6Id, "Novel mana yang dimulai dengan kalimat terkenal: 'It was the best of times, it was the worst of times'?", "Great Expectations", "A Tale of Two Cities", "Pride and Prejudice", "Wuthering Heights", "B");
+
+        // Insert Questions for Logic Puzzles & Brain Teasers (Medium)
+        insertQuestionHelper(db, q7Id, "Jika sebuah segitiga memiliki panjang sisi 3, 4, dan 5, berapa luasnya?", "6", "10", "12", "15", "A");
+        insertQuestionHelper(db, q7Id, "Angka berapa yang berikutnya dalam urutan: 2, 4, 8, 16, ...?", "20", "24", "32", "64", "C");
+        insertQuestionHelper(db, q7Id, "What is the only even prime number?", "0", "2", "4", "6", "B");
+
+        // Insert Questions for Olympic Games Trivia (Medium)
+        insertQuestionHelper(db, q8Id, "Seberapa sering Pertandingan Olimpiade diadakan?", "Setiap 2 tahun", "Setiap 3 tahun", "Setiap 4 tahun", "Setiap 5 tahun", "C");
+        insertQuestionHelper(db, q8Id, "Negara mana yang memenangkan medali emas terbanyak di Olimpiade Musim Panas Tokyo 2020?", "China", "Amerika Serikat", "Jepang", "Britania Raya", "B");
+        insertQuestionHelper(db, q8Id, "Apa warna dari lima cincin pada bendera Olimpiade?", "Merah, biru, hijau, kuning, hitam", "Merah, biru, hijau, oranye, ungu", "Merah, putih, biru, emas, perak", "Pink, purple, grey, brown, white", "A");
     }
 
     private void insertQuestionHelper(SQLiteDatabase db, long quizId, String text, String oA, String oB, String oC, String oD, String correct) {

@@ -1,4 +1,8 @@
 package com.example.cogniquest;
+import com.example.cogniquest.utils.UserManager;
+import com.example.cogniquest.ui.admin.AdminDashboardActivity;
+import com.example.cogniquest.ui.auth.LoginActivity;
+import com.example.cogniquest.ui.dashboard.HomeDashboardActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

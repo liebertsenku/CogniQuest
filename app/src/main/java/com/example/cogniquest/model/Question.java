@@ -1,4 +1,4 @@
-package com.example.cogniquest;
+package com.example.cogniquest.model;
 
 public class Question {
     private int id;

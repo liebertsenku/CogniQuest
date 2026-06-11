@@ -1,4 +1,4 @@
-package com.example.cogniquest;
+package com.example.cogniquest.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -154,6 +154,14 @@ public class UserManager {
 
     public String getBio() {
         return prefs.getString(KEY_BIO, "Welcome to CogniQuest!");
+    }
+
+    public String getAvatarUri() {
+        return prefs.getString("avatarUri_" + getUsername().toLowerCase(), "");
+    }
+
+    public void updateAvatarUri(String uri) {
+        prefs.edit().putString("avatarUri_" + getUsername().toLowerCase(), uri).apply();
     }
     
     public void setDarkMode(boolean isDark) {

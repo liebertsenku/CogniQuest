@@ -1,4 +1,6 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.adapter;
+import com.example.cogniquest.R;
+import com.example.cogniquest.model.QuizHistory;
 
 import android.view.LayoutInflater;
 import android.view.View;
