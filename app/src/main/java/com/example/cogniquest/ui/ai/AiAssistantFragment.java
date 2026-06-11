@@ -97,7 +97,7 @@ public class AiAssistantFragment extends Fragment {
             JSONObject systemInstruction = new JSONObject();
             JSONArray sysParts = new JSONArray();
             JSONObject sysPart = new JSONObject();
-            sysPart.put("text", "Anda adalah EduMaster AI, asisten belajar. Jawablah selalu dalam bahasa Indonesia dengan jelas, ramah, dan terstruktur. Gunakan baris baru dan bullet points secara teratur agar mudah dibaca.");
+            sysPart.put("text", "Anda adalah CogniQuest, asisten belajar. Jawablah selalu dalam bahasa Indonesia dengan jelas, ramah, dan terstruktur. Gunakan baris baru dan bullet points secara teratur agar mudah dibaca.");
             sysParts.put(sysPart);
             systemInstruction.put("parts", sysParts);
             jsonBody.put("systemInstruction", systemInstruction);
@@ -196,7 +196,7 @@ public class AiAssistantFragment extends Fragment {
         layout.setLayoutParams(params);
 
         TextView label = new TextView(requireContext());
-        label.setText("EduMaster AI");
+        label.setText("CogniQuest");
         label.setTextSize(12);
         label.setTextColor(getResources().getColor(R.color.outline_variant));
 
@@ -223,13 +223,17 @@ public class AiAssistantFragment extends Fragment {
         html = html.replaceAll("(?m)^##\\s+(.*?)$", "<br><b>$1</b><br>");
         html = html.replaceAll("(?m)^#\\s+(.*?)$", "<br><b>$1</b><br>");
         
-        html = html.replaceAll("(?m)^---+$", "<br><font color='#888888'>────────────────────────────────</font><br>");
+        // Menghilangkan '---' karena bisa melampaui 1 baris
+        html = html.replaceAll("(?m)^\\s*---+\\s*$", "");
         
         html = html.replaceAll("(?m)^\\*\\s+(.*?)$", "• $1");
         html = html.replaceAll("(?m)^-\\s+(.*?)$", "• $1");
         
-        html = html.replaceAll("(?s)\\*\\*(.*?)\\*\\*", "<b>$1</b>");
+        // Menangani format code block ``` dan inline code `
+        html = html.replaceAll("(?s)```[a-zA-Z]*\\n?(.*?)```", "<br><tt>$1</tt><br>");
+        html = html.replaceAll("(?s)`(.*?)`", "<i>$1</i>"); // Menggunakan italics/tt untuk inline code agar lebih rapi
         
+        html = html.replaceAll("(?s)\\*\\*(.*?)\\*\\*", "<b>$1</b>");
         html = html.replaceAll("(?s)\\*(.*?)\\*", "<i>$1</i>");
         
         html = html.replace("\n", "<br>");
