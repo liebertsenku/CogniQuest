@@ -1,4 +1,9 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.profile;
+import com.example.cogniquest.R;
+import com.example.cogniquest.model.QuizHistory;
+import com.example.cogniquest.database.DatabaseHelper;
+import com.example.cogniquest.utils.UserManager;
+import com.example.cogniquest.ui.auth.LoginActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +70,10 @@ public class ProfileFragment extends Fragment {
             scholarInfo.setText(userManager.getBio());
         }
 
+        com.google.android.material.imageview.ShapeableImageView profileImageSmall = view.findViewById(R.id.profileImageSmall);
+        com.google.android.material.imageview.ShapeableImageView profileImageLarge = view.findViewById(R.id.profileImageLarge);
+        updateProfileImages(profileImageSmall, profileImageLarge);
+
         if (switchDarkMode != null) {
             switchDarkMode.setChecked(userManager.isDarkMode());
             switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -110,6 +119,9 @@ public class ProfileFragment extends Fragment {
             if (scholarInfo != null) {
                 scholarInfo.setText(userManager.getBio());
             }
+            com.google.android.material.imageview.ShapeableImageView profileImageSmall = getView().findViewById(R.id.profileImageSmall);
+            com.google.android.material.imageview.ShapeableImageView profileImageLarge = getView().findViewById(R.id.profileImageLarge);
+            updateProfileImages(profileImageSmall, profileImageLarge);
             loadProfileStats(getView());
         }
     }
@@ -264,6 +276,26 @@ public class ProfileFragment extends Fragment {
                 });
             }
         }).start();
+    }
+
+    private void updateProfileImages(com.google.android.material.imageview.ShapeableImageView small, com.google.android.material.imageview.ShapeableImageView large) {
+        String avatarUri = userManager.getAvatarUri();
+        if (avatarUri != null && !avatarUri.isEmpty()) {
+            android.net.Uri uri = android.net.Uri.parse(avatarUri);
+            if (small != null) {
+                small.setImageURI(uri);
+            }
+            if (large != null) {
+                large.setImageURI(uri);
+            }
+        } else {
+            if (small != null) {
+                small.setImageResource(R.drawable.ic_profile);
+            }
+            if (large != null) {
+                large.setImageResource(R.drawable.ic_profile);
+            }
+        }
     }
 
     private int dpToPx(float dp) {

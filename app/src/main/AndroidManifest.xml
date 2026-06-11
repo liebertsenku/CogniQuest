@@ -26,22 +26,20 @@
         </activity>
         
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="true">
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".HomeDashboardActivity" />
-        <activity android:name=".QuizSessionActivity" />
-        <activity android:name=".QuizHistoryActivity" />
-        <activity android:name=".ProfileStatsActivity" />
-        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".ui.auth.RegisterActivity" />
+        <activity android:name=".ui.dashboard.HomeDashboardActivity" />
+        <activity android:name=".ui.quiz.QuizSessionActivity" />
+        <activity android:name=".ui.quiz.QuizHistoryActivity" />
+        <activity android:name=".ui.profile.ProfileStatsActivity" />
+        <activity android:name=".ui.profile.EditProfileActivity" />
         
         <!-- Phase 2 Activities -->
-        <activity android:name=".ManageQuizzesActivity" />
-        <activity android:name=".ManageQuestionsActivity" />
-        <activity android:name=".AdminDashboardActivity" />
-        <activity android:name=".LearningProgressActivity" />
-        <activity android:name=".AiAssistantActivity" />
+        <activity android:name=".ui.admin.ManageQuizzesActivity" />
+        <activity android:name=".ui.admin.ManageQuestionsActivity" />
+        <activity android:name=".ui.admin.AdminDashboardActivity" />
         
     </application>
 

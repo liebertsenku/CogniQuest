@@ -88,12 +88,13 @@
                         android:id="@+id/avatarImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@android:drawable/ic_menu_gallery"
+                        android:src="@drawable/ic_profile"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                         android:scaleType="centerCrop"/>
                 </FrameLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnEditAvatar"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@android:drawable/ic_menu_edit"
@@ -106,6 +107,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tvChangeAvatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tap to change avatar"

@@ -1,4 +1,11 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.dashboard;
+import com.example.cogniquest.R;
+import com.example.cogniquest.model.QuizHistory;
+import com.example.cogniquest.model.Quote;
+import com.example.cogniquest.database.DatabaseHelper;
+import com.example.cogniquest.network.RetrofitClient;
+import com.example.cogniquest.network.ZenQuotesApi;
+import com.example.cogniquest.utils.UserManager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

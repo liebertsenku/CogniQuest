@@ -1,4 +1,6 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.dashboard;
+import com.example.cogniquest.R;
+import com.example.cogniquest.utils.UserManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cogniquest.databinding.ActivityHomeDashboardBinding;
@@ -24,8 +27,7 @@ public class HomeDashboardActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         userManager = new UserManager(this);
-        
-        // The welcome text is now in HomeFragment, so we remove it from here.
+        updateAvatar();
         
         binding.addFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +44,28 @@ public class HomeDashboardActivity extends AppCompatActivity {
         if (navHostFragment != null) {
             androidx.navigation.NavController navController = navHostFragment.getNavController();
             
+            navController.addOnDestinationChangedListener(new androidx.navigation.NavController.OnDestinationChangedListener() {
+                @Override
+                public void onDestinationChanged(@NonNull androidx.navigation.NavController controller, 
+                                               @NonNull androidx.navigation.NavDestination destination, 
+                                               @Nullable Bundle arguments) {
+                    int id = destination.getId();
+                    if (id == R.id.nav_home) {
+                        binding.appBarLayout.setVisibility(View.VISIBLE);
+                        binding.appBarBorder.setVisibility(View.VISIBLE);
+                        binding.addFab.show();
+                    } else if (id == R.id.nav_profile) {
+                        binding.appBarLayout.setVisibility(View.VISIBLE);
+                        binding.appBarBorder.setVisibility(View.VISIBLE);
+                        binding.addFab.hide();
+                    } else {
+                        binding.appBarLayout.setVisibility(View.GONE);
+                        binding.appBarBorder.setVisibility(View.GONE);
+                        binding.addFab.hide();
+                    }
+                }
+            });
+
             // Handle SELECT_TAB extra
             int selectedTab = getIntent().getIntExtra("SELECT_TAB", R.id.nav_home);
             if (selectedTab != R.id.nav_home) {
@@ -59,11 +83,15 @@ public class HomeDashboardActivity extends AppCompatActivity {
                         }
                         return true;
                     } else if (itemId == R.id.nav_ai) {
-                        startActivity(new Intent(HomeDashboardActivity.this, AiAssistantActivity.class));
-                        return false;
+                        if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_ai) {
+                            navController.navigate(R.id.nav_ai);
+                        }
+                        return true;
                     } else if (itemId == R.id.nav_progress) {
-                        startActivity(new Intent(HomeDashboardActivity.this, LearningProgressActivity.class));
-                        return false;
+                        if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_progress) {
+                            navController.navigate(R.id.nav_progress);
+                        }
+                        return true;
                     } else if (itemId == R.id.nav_profile) {
                         if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_profile) {
                             navController.navigate(R.id.nav_profile);
@@ -92,6 +120,21 @@ public class HomeDashboardActivity extends AppCompatActivity {
                 navController.navigate(selectedTab);
                 binding.bottomNavigation.setSelectedItemId(selectedTab);
             }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateAvatar();
+    }
+
+    private void updateAvatar() {
+        String avatarUri = userManager.getAvatarUri();
+        if (avatarUri != null && !avatarUri.isEmpty()) {
+            binding.profileImage.setImageURI(android.net.Uri.parse(avatarUri));
+        } else {
+            binding.profileImage.setImageResource(R.drawable.ic_profile);
         }
     }
 }

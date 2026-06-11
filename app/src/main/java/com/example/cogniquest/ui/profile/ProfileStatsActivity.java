@@ -1,4 +1,9 @@
-package com.example.cogniquest;
+package com.example.cogniquest.ui.profile;
+import com.example.cogniquest.R;
+import com.example.cogniquest.utils.UserManager;
+import com.example.cogniquest.ui.auth.LoginActivity;
+import com.example.cogniquest.ui.dashboard.HomeDashboardActivity;
+import com.example.cogniquest.ui.quiz.QuizHistoryActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

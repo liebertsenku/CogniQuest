@@ -7,16 +7,26 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.cogniquest.HomeFragment"
+        android:name="com.example.cogniquest.ui.dashboard.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_ai"
+        android:name="com.example.cogniquest.ui.ai.AiAssistantFragment"
+        android:label="AI Assistant"
+        tools:layout="@layout/fragment_ai_assistant" />
+
+    <fragment
+        android:id="@+id/nav_progress"
+        android:name="com.example.cogniquest.ui.quiz.LearningProgressFragment"
+        android:label="Progress"
+        tools:layout="@layout/fragment_learning_progress" />
+
+    <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.cogniquest.ProfileFragment"
+        android:name="com.example.cogniquest.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/activity_profile_stats" />
-        
-    <!-- We map bottom nav IDs to these fragment IDs -->
 
 </navigation>
