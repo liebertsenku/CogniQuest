@@ -102,6 +102,11 @@ public class ProfileFragment extends Fragment {
             });
         }
 
+        View shareProfileButton = view.findViewById(R.id.shareProfileButton);
+        if (shareProfileButton != null) {
+            shareProfileButton.setOnClickListener(v -> shareProfile());
+        }
+
         loadProfileStats(view);
 
         return view;
@@ -124,6 +129,33 @@ public class ProfileFragment extends Fragment {
             updateProfileImages(profileImageSmall, profileImageLarge);
             loadProfileStats(getView());
         }
+    }
+
+    private void shareProfile() {
+        if (getContext() == null || userManager == null) return;
+        
+        String username = userManager.getFullname();
+        String bio = userManager.getBio();
+        
+        TextView tvAccuracy = getView() != null ? getView().findViewById(R.id.tvProfileAccuracy) : null;
+        TextView tvQuestions = getView() != null ? getView().findViewById(R.id.tvProfileQuestions) : null;
+        
+        String accuracy = tvAccuracy != null ? tvAccuracy.getText().toString() : "0%";
+        String questions = tvQuestions != null ? tvQuestions.getText().toString() : "0";
+        
+        String shareText = "Check out my progress on CogniQuest!\n\n" +
+                "👤 Name: " + username + "\n" +
+                "🎓 Level: " + bio + "\n" +
+                "🎯 Accuracy: " + accuracy + "\n" +
+                "📚 Questions Answered: " + questions + "\n\n" +
+                "Join me on CogniQuest today!";
+                
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My CogniQuest Profile");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        
+        startActivity(Intent.createChooser(shareIntent, "Share Profile via"));
     }
 
     private void loadProfileStats(View view) {
@@ -213,9 +245,9 @@ public class ProfileFragment extends Fragment {
                         }
                         
                         int[] colors = {
-                            androidx.core.content.ContextCompat.getColor(requireContext(), R.color.primary),
-                            androidx.core.content.ContextCompat.getColor(requireContext(), R.color.secondary),
-                            androidx.core.content.ContextCompat.getColor(requireContext(), R.color.secondary_fixed_dim)
+                            android.graphics.Color.parseColor("#4A3B9C"),
+                            android.graphics.Color.parseColor("#007B8C"),
+                            android.graphics.Color.parseColor("#4BC8F2")
                         };
                         
                         int limit = Math.min(3, sortedCategories.size());

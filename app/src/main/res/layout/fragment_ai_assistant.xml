@@ -94,7 +94,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="EduMaster AI"
+                        android:text="CogniQuest"
                         android:textSize="12sp"
                         android:textColor="@color/outline_variant"
                         android:layout_marginStart="8dp"/>
@@ -103,7 +103,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello! I'm your EduMaster AI. How can I help you with your studies today?"
+                    android:text="Hello! I'm CogniQuest. How can I help you with your studies today?"
                     android:background="@drawable/chat_bubble_background"
                     android:backgroundTint="@color/surface_container"
                     android:textColor="@color/on_surface"
@@ -137,7 +137,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/chat_bubble_background"
                 android:backgroundTint="@color/surface_container_high"
-                android:hint="Ask EduMaster AI anything..."
+                android:hint="Ask CogniQuest anything..."
                 android:textColor="@color/on_surface"
                 android:textColorHint="@color/outline"
                 android:paddingHorizontal="16dp"

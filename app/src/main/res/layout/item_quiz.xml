@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/outline_variant"
+    app:cardBackgroundColor="@color/surface_container_lowest"
     android:layout_marginBottom="16dp">
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvQuizTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <TextView
-                android:id="@+id/tvQuizTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Title"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/on_surface"/>
-            <ImageButton
-                android:id="@+id/btnEdit"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:tint="@color/on_surface" />
-            <ImageButton
-                android:id="@+id/btnDelete"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_delete"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:tint="#ba1a1a"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-        
+            android:text="Title"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/on_surface"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEdit"
+            android:layout_marginEnd="16dp"/>
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/on_surface_variant"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/on_surface_variant"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete" />
+
+        <!-- We'll hide tvQuizDesc since it's not in the new design, but we'll keep it in XML to not break adapter bindings -->
         <TextView
             android:id="@+id/tvQuizDesc"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Description"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle"
+            app:layout_constraintStart_toStartOf="parent">
+
             <TextView
                 android:id="@+id/tvQuestionCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10 Questions"
-                android:textColor="@color/on_surface"
+                android:textColor="@color/on_surface_variant"
                 android:textSize="12sp"
-                app:drawableStartCompat="@android:drawable/ic_menu_sort_by_size"
-                android:drawablePadding="4dp"/>
+                app:drawableStartCompat="@drawable/ic_list_numbered"
+                android:drawablePadding="6dp"
+                app:drawableTint="@color/on_surface_variant"/>
+
             <View
                 android:layout_width="4dp"
                 android:layout_height="4dp"
                 android:background="@drawable/circle_border"
-                android:backgroundTint="@color/outline_variant"
-                android:layout_marginHorizontal="8dp" />
+                android:backgroundTint="#d0d0d0"
+                android:layout_marginHorizontal="12dp" />
+
             <TextView
                 android:id="@+id/tvDifficulty"
                 android:layout_width="wrap_content"
@@ -81,9 +92,14 @@
                 android:text="Medium"
                 android:textColor="@color/secondary"
                 android:textSize="12sp"
-                app:drawableStartCompat="@android:drawable/ic_menu_compass"
-                android:drawablePadding="4dp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_lightning"
+                android:drawablePadding="6dp"
                 app:drawableTint="@color/secondary"/>
+
+
+
         </LinearLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -201,7 +201,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_compass"
+                    android:src="@drawable/ic_chart_progress"
                     app:tint="@color/primary"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@android:drawable/ic_dialog_info"
+                            android:src="@drawable/ic_target"
                             app:tint="@color/secondary"
                             android:layout_marginBottom="8dp"/>
                         <TextView
@@ -283,7 +283,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@android:drawable/ic_menu_help"
+                            android:src="@drawable/ic_head_gear"
                             app:tint="@color/primary"
                             android:layout_marginBottom="8dp"/>
                         <TextView
@@ -509,8 +509,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
         android:background="@color/surface"
-        app:elevation="8dp"
-        app:itemIconTint="@color/primary"
-        app:itemTextColor="@color/primary"/>
+        app:elevation="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

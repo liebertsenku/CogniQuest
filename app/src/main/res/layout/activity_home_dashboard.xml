@@ -62,7 +62,7 @@
                     android:id="@+id/notificationButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@android:drawable/ic_popup_reminder"
+                    android:src="@drawable/ic_bell"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:tint="@color/on_surface_variant"
                     android:layout_alignParentEnd="true"
@@ -92,19 +92,7 @@
         app:layout_constraintTop_toBottomOf="@id/appBarBorder"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation" />
 
-    <!-- Floating Action Button -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/primary"
-        app:tint="@color/white"
-        app:elevation="4dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- Floating Action Button Removed -->
 
     <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -114,8 +102,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu_user"
         android:background="@color/surface"
-        app:elevation="8dp"
-        app:itemIconTint="@color/primary"
-        app:itemTextColor="@color/primary"/>
+        app:elevation="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

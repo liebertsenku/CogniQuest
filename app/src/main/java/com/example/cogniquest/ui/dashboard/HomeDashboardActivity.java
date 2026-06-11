@@ -28,13 +28,10 @@ public class HomeDashboardActivity extends AppCompatActivity {
 
         userManager = new UserManager(this);
         updateAvatar();
+
+        binding.notificationButton.setOnClickListener(v -> showNotificationDialog());
         
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(HomeDashboardActivity.this, "Create new task", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         // Setup Navigation Component
         androidx.navigation.fragment.NavHostFragment navHostFragment = 
@@ -53,15 +50,12 @@ public class HomeDashboardActivity extends AppCompatActivity {
                     if (id == R.id.nav_home) {
                         binding.appBarLayout.setVisibility(View.VISIBLE);
                         binding.appBarBorder.setVisibility(View.VISIBLE);
-                        binding.addFab.show();
                     } else if (id == R.id.nav_profile) {
                         binding.appBarLayout.setVisibility(View.VISIBLE);
                         binding.appBarBorder.setVisibility(View.VISIBLE);
-                        binding.addFab.hide();
                     } else {
                         binding.appBarLayout.setVisibility(View.GONE);
                         binding.appBarBorder.setVisibility(View.GONE);
-                        binding.addFab.hide();
                     }
                 }
             });
@@ -136,5 +130,19 @@ public class HomeDashboardActivity extends AppCompatActivity {
         } else {
             binding.profileImage.setImageResource(R.drawable.ic_profile);
         }
+    }
+
+    private void showNotificationDialog() {
+        android.view.View dialogView = getLayoutInflater().inflate(R.layout.dialog_notifications, null);
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+        
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        dialogView.findViewById(R.id.btnCloseNotifications).setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 }

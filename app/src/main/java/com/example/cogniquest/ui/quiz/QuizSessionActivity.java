@@ -112,11 +112,13 @@ public class QuizSessionActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 int secs = (int) (millisUntilFinished / 1000);
                 binding.tvTimer.setText(String.valueOf(secs));
+                binding.progressBarTimer.setProgress(secs);
             }
 
             @Override
             public void onFinish() {
                 binding.tvTimer.setText("0");
+                binding.progressBarTimer.setProgress(0);
                 // Automatically lock answers and check (user gets it wrong)
                 selectedOption = ""; // No answer selected
                 gradeQuestion();
@@ -146,6 +148,16 @@ public class QuizSessionActivity extends AppCompatActivity {
                 ((android.widget.TextView) indicator).setTextColor(Color.WHITE);
                 indicator.setBackgroundTintList(android.content.res.ColorStateList.valueOf(primaryColor));
             }
+
+            // Highlight text color and show checkmark
+            View text = getTextForOption(option);
+            if (text instanceof android.widget.TextView) {
+                ((android.widget.TextView) text).setTextColor(primaryColor);
+            }
+            android.widget.ImageView check = getCheckForOption(option);
+            if (check != null) {
+                check.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -155,6 +167,8 @@ public class QuizSessionActivity extends AppCompatActivity {
         int cardBgColor = androidx.core.content.ContextCompat.getColor(this, R.color.white);
         int indicatorTextColor = androidx.core.content.ContextCompat.getColor(this, R.color.outline);
         int indicatorBgColor = androidx.core.content.ContextCompat.getColor(this, R.color.surface_container);
+
+        int textColor = androidx.core.content.ContextCompat.getColor(this, R.color.on_surface);
 
         for (String op : options) {
             MaterialCardView card = getCardForOption(op);
@@ -167,6 +181,14 @@ public class QuizSessionActivity extends AppCompatActivity {
             if (indicator instanceof android.widget.TextView) {
                 ((android.widget.TextView) indicator).setTextColor(indicatorTextColor);
                 indicator.setBackgroundTintList(android.content.res.ColorStateList.valueOf(indicatorBgColor));
+            }
+            View text = getTextForOption(op);
+            if (text instanceof android.widget.TextView) {
+                ((android.widget.TextView) text).setTextColor(textColor);
+            }
+            android.widget.ImageView check = getCheckForOption(op);
+            if (check != null) {
+                check.setVisibility(View.GONE);
             }
         }
     }
@@ -194,6 +216,26 @@ public class QuizSessionActivity extends AppCompatActivity {
             case "B": return binding.tvOptionBIndex;
             case "C": return binding.tvOptionCIndex;
             case "D": return binding.tvOptionDIndex;
+            default: return null;
+        }
+    }
+
+    private View getTextForOption(String option) {
+        switch (option) {
+            case "A": return binding.tvOptionAText;
+            case "B": return binding.tvOptionBText;
+            case "C": return binding.tvOptionCText;
+            case "D": return binding.tvOptionDText;
+            default: return null;
+        }
+    }
+
+    private android.widget.ImageView getCheckForOption(String option) {
+        switch (option) {
+            case "A": return binding.ivOptionACheck;
+            case "B": return binding.ivOptionBCheck;
+            case "C": return binding.ivOptionCCheck;
+            case "D": return binding.ivOptionDCheck;
             default: return null;
         }
     }
@@ -266,6 +308,16 @@ public class QuizSessionActivity extends AppCompatActivity {
             if (indicator instanceof android.widget.TextView) {
                 ((android.widget.TextView) indicator).setTextColor(Color.WHITE);
                 indicator.setBackgroundTintList(android.content.res.ColorStateList.valueOf(strokeColor));
+            }
+            
+            View text = getTextForOption(option);
+            if (text instanceof android.widget.TextView) {
+                ((android.widget.TextView) text).setTextColor(strokeColor);
+            }
+            android.widget.ImageView check = getCheckForOption(option);
+            if (check != null) {
+                check.setVisibility(View.VISIBLE);
+                check.setImageTintList(android.content.res.ColorStateList.valueOf(strokeColor));
             }
         }
     }

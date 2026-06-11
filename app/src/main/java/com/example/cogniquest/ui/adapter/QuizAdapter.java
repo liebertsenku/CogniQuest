@@ -53,13 +53,22 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         holder.tvQuestionsCount.setText(quiz.getQuestionsCount() + " Questions");
         holder.tvDifficulty.setText(quiz.getDifficulty() != null ? quiz.getDifficulty().getDisplayName() : "");
 
-        // Simple color coding for difficulty (optional enhancement based on earlier UI)
+        int colorHard = android.graphics.Color.parseColor("#a2002c");
+        int colorMedium = android.graphics.Color.parseColor("#00838f");
+        int colorEasy = android.graphics.Color.parseColor("#512da8");
+
         if (quiz.getDifficulty() == Difficulty.HARD) {
-            holder.tvDifficulty.setTextColor(android.graphics.Color.parseColor("#a2002c"));
+            holder.tvDifficulty.setTextColor(colorHard);
+            holder.tvDifficulty.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_fire, 0, 0, 0);
+            holder.tvDifficulty.getCompoundDrawables()[0].setTint(colorHard);
         } else if (quiz.getDifficulty() == Difficulty.MEDIUM) {
-            holder.tvDifficulty.setTextColor(android.graphics.Color.parseColor("#004e60"));
+            holder.tvDifficulty.setTextColor(colorMedium);
+            holder.tvDifficulty.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lightning, 0, 0, 0);
+            holder.tvDifficulty.getCompoundDrawables()[0].setTint(colorMedium);
         } else {
-            holder.tvDifficulty.setTextColor(android.graphics.Color.parseColor("#006a2c"));
+            holder.tvDifficulty.setTextColor(colorEasy);
+            holder.tvDifficulty.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_star, 0, 0, 0);
+            holder.tvDifficulty.getCompoundDrawables()[0].setTint(colorEasy);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -90,6 +99,23 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     public void updateData(List<Quiz> newQuizList) {
         this.quizList = newQuizList;
+        notifyDataSetChanged();
+    }
+
+    public void filter(String query, List<Quiz> allQuizzes) {
+        if (query == null || query.trim().isEmpty()) {
+            this.quizList = allQuizzes;
+        } else {
+            java.util.List<Quiz> filteredList = new java.util.ArrayList<>();
+            String lowerCaseQuery = query.toLowerCase().trim();
+            for (Quiz quiz : allQuizzes) {
+                if (quiz.getTitle().toLowerCase().contains(lowerCaseQuery) ||
+                    (quiz.getCategory() != null && quiz.getCategory().toLowerCase().contains(lowerCaseQuery))) {
+                    filteredList.add(quiz);
+                }
+            }
+            this.quizList = filteredList;
+        }
         notifyDataSetChanged();
     }
 
