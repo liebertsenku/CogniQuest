@@ -45,20 +45,12 @@
                 android:layout_weight="1"/>
 
             <!-- Header -->
-            <FrameLayout
+            <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:backgroundTint="@color/primary_container"
-                android:background="@drawable/rounded_bg"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
-                android:rotation="3">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:src="@android:drawable/ic_menu_add"
-                    app:tint="@color/on_primary_container"/>
-            </FrameLayout>
+                android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +89,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                    app:startIconDrawable="@drawable/ic_user"
                     app:startIconTint="#f0f0f3"
                     app:boxBackgroundColor="@android:color/transparent"
                     app:boxBackgroundMode="none"
@@ -133,7 +125,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                    app:startIconDrawable="@drawable/ic_user"
                     app:startIconTint="#f0f0f3"
                     app:boxBackgroundColor="@android:color/transparent"
                     app:boxBackgroundMode="none"
@@ -169,7 +161,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@android:drawable/sym_action_email"
+                    app:startIconDrawable="@drawable/ic_mail"
                     app:startIconTint="#f0f0f3"
                     app:boxBackgroundColor="@android:color/transparent"
                     app:boxBackgroundMode="none"
@@ -205,7 +197,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                    app:startIconDrawable="@drawable/ic_lock"
                     app:startIconTint="#f0f0f3"
                     app:boxBackgroundColor="@android:color/transparent"
                     app:boxBackgroundMode="none"

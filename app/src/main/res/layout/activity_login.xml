@@ -45,20 +45,12 @@
                 android:layout_weight="1"/>
 
             <!-- Header -->
-            <FrameLayout
+            <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:backgroundTint="@color/primary_container"
-                android:background="@drawable/rounded_bg"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
-                android:rotation="3">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:src="@android:drawable/ic_dialog_info"
-                    app:tint="@color/on_primary_container"/>
-            </FrameLayout>
+                android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +89,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                    app:startIconDrawable="@drawable/ic_user"
                     app:startIconTint="#f0f0f3"
                     app:boxBackgroundColor="@android:color/transparent"
                     app:boxBackgroundMode="none"
@@ -121,32 +113,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginBottom="32dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password"
-                        android:textColor="#f0f0f3"
-                        android:alpha="0.7"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_alignParentStart="true"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Forgot Password?"
-                        android:textColor="@color/primary_fixed_dim"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_alignParentEnd="true"/>
-                </RelativeLayout>
+                    android:text="Password"
+                    android:textColor="#f0f0f3"
+                    android:alpha="0.7"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                    app:startIconDrawable="@drawable/ic_lock"
                     app:startIconTint="#f0f0f3"
                     app:boxBackgroundColor="@android:color/transparent"
                     app:boxBackgroundMode="none"
