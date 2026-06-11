@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CogniQuest" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_fixed_dim</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/on_primary_fixed</item>
-        <item name="colorSecondary">@color/secondary_fixed_dim</item>
-        <item name="android:colorBackground">@color/on_background</item>
-        <item name="colorOnBackground">@color/background</item>
-        <item name="colorSurface">@color/inverse_surface</item>
-        <item name="colorOnSurface">@color/inverse_on_surface</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        <item name="colorSurface">@color/surface_container_lowest</item>
+        <item name="colorOnSurface">@color/on_surface</item>
     </style>
 </resources>
