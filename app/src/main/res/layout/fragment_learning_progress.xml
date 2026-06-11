@@ -24,29 +24,37 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_gallery"
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/circle_border"
-                    android:padding="2dp" />
+                    android:padding="2dp">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_profile"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                        android:scaleType="centerCrop"/>
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="EduMaster AI"
+                    android:text="CogniQuest"
                     android:textColor="@color/primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <ImageButton
+                    android:id="@+id/notificationButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@android:drawable/ic_popup_reminder"
+                    android:src="@drawable/ic_bell"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    app:tint="@color/primary"
+                    app:tint="@color/on_surface_variant"
                     android:layout_marginEnd="16dp"/>
 
             </LinearLayout>
@@ -93,8 +101,6 @@
                     <FrameLayout
                         android:layout_width="160dp"
                         android:layout_height="160dp"
-                        android:background="@drawable/circle_border"
-                        android:backgroundTint="@color/primary_fixed"
                         android:layout_marginBottom="16dp">
                         
                         <ProgressBar
@@ -104,8 +110,7 @@
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="78"
-                            android:progressDrawable="@drawable/circle_border"
-                            android:progressTint="@color/primary"
+                            android:progressDrawable="@drawable/progress_donut"
                             style="?android:attr/progressBarStyleHorizontal" />
 
                         <LinearLayout
@@ -211,13 +216,34 @@
                         android:orientation="horizontal"
                         android:gravity="center"
                         android:weightSum="7">
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="M" android:textColor="@color/on_primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary" android:layout_weight="1" android:layout_marginEnd="4dp"/>
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="T" android:textColor="@color/on_primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary" android:layout_weight="1" android:layout_marginEnd="4dp"/>
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="W" android:textColor="@color/on_primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary" android:layout_weight="1" android:layout_marginEnd="4dp"/>
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="T" android:textColor="@color/on_primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary" android:layout_weight="1" android:layout_marginEnd="4dp"/>
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="F" android:textColor="@color/on_primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary" android:layout_weight="1" android:layout_marginEnd="4dp"/>
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="S" android:textColor="@color/on_primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary" android:layout_weight="1" android:layout_marginEnd="4dp"/>
-                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:text="S" android:textColor="@color/primary" android:gravity="center" android:textStyle="bold" android:background="@drawable/circle_border" android:backgroundTint="@color/primary_fixed" android:layout_weight="1"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mon" android:textSize="12sp" android:textColor="@color/on_surface_variant" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay1" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_check_white" android:background="@drawable/bg_circle_solid_purple" android:padding="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tue" android:textSize="12sp" android:textColor="@color/on_surface_variant" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay2" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_check_white" android:background="@drawable/bg_circle_solid_purple" android:padding="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wed" android:textSize="12sp" android:textColor="@color/on_surface_variant" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay3" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_check_white" android:background="@drawable/bg_circle_solid_purple" android:padding="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Thu" android:textSize="12sp" android:textColor="@color/on_surface_variant" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay4" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_check_white" android:background="@drawable/bg_circle_solid_purple" android:padding="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fri" android:textSize="12sp" android:textColor="@color/on_surface_variant" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay5" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_check_white" android:background="@drawable/bg_circle_solid_purple" android:padding="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sat" android:textSize="12sp" android:textColor="@color/on_surface_variant" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay6" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_check_white" android:background="@drawable/bg_circle_solid_purple" android:padding="6dp"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                            <TextView android:id="@+id/tvDay7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sun" android:textSize="12sp" android:textColor="@color/on_surface" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                            <ImageView android:id="@+id/ivDay7" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_lightning_purple" android:background="@drawable/bg_circle_light_purple" android:padding="6dp"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -359,13 +385,15 @@
                     android:textStyle="bold"/>
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvRecentQuiz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardBackgroundColor="@color/surface_container_lowest"
                 android:layout_marginBottom="24dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -376,9 +404,9 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@android:drawable/ic_menu_help"
+                        android:src="@drawable/ic_list_numbered"
                         app:tint="@color/primary"
-                        android:background="@color/surface"
+                        android:background="@drawable/bg_circle_light_purple"
                         android:padding="8dp"/>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -414,23 +442,23 @@
                         app:drawableTint="@color/secondary"
                         android:drawablePadding="4dp"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- AI Insight -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/outline_variant"
+                app:cardBackgroundColor="@color/surface_container_lowest"
                 android:layout_marginBottom="24dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp"
-                    android:background="@drawable/circle_border"
-                    android:backgroundTint="@color/surface_container">
+                    android:padding="20dp">
                     
                     <TextView
                         android:layout_width="wrap_content"
@@ -445,13 +473,14 @@
                         android:layout_marginBottom="8dp"/>
                     
                     <TextView
+                        android:id="@+id/tvAiTip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="You learn most effectively between 9:00 AM - 11:00 AM. Consider scheduling your deep work sessions then."
                         android:textColor="@color/on_surface_variant"
                         android:textSize="16sp"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>

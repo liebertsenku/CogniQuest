@@ -20,6 +20,11 @@ import com.example.cogniquest.ui.quiz.QuizSessionActivity;
 import com.example.cogniquest.ui.quiz.QuizHistoryActivity;
 import com.example.cogniquest.R;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -70,6 +75,23 @@ public class LearningProgressFragment extends Fragment {
             Intent intent = new Intent(requireContext(), QuizHistoryActivity.class);
             startActivity(intent);
         });
+
+        binding.notificationButton.setOnClickListener(v -> showNotificationDialog());
+    }
+
+    private void showNotificationDialog() {
+        if (getContext() == null) return;
+        android.view.View dialogView = getLayoutInflater().inflate(R.layout.dialog_notifications, null);
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create();
+        
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        dialogView.findViewById(R.id.btnCloseNotifications).setOnClickListener(v2 -> dialog.dismiss());
+        dialog.show();
     }
 
     @Override
@@ -77,6 +99,18 @@ public class LearningProgressFragment extends Fragment {
         super.onResume();
         if (databaseHelper != null) {
             loadDynamicStats(databaseHelper);
+        }
+        updateAvatar();
+    }
+
+    private void updateAvatar() {
+        if (getContext() == null || binding == null) return;
+        UserManager userManager = new UserManager(requireContext());
+        String avatarUri = userManager.getAvatarUri();
+        if (avatarUri != null && !avatarUri.isEmpty()) {
+            binding.profileImage.setImageURI(android.net.Uri.parse(avatarUri));
+        } else {
+            binding.profileImage.setImageResource(R.drawable.ic_profile);
         }
     }
 
@@ -118,9 +152,91 @@ public class LearningProgressFragment extends Fragment {
         }
 
         // Learning Streak
-        int streakDays = uniqueDates.size();
-        binding.tvCurrentStreak.setText("Current Streak: " + streakDays + " Days");
-        binding.tvBestStreak.setText(Math.max(streakDays, 0) + " Days");
+        SharedPreferences prefs = requireContext().getSharedPreferences("CogniQuest_Prefs", Context.MODE_PRIVATE);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+        SimpleDateFormat dayNameFormat = new SimpleDateFormat("EEE", Locale.US);
+
+        Calendar todayCal = Calendar.getInstance();
+        String todayStr = dateFormat.format(todayCal.getTime());
+
+        Set<String> accessedDates = prefs.getStringSet("accessed_dates", new HashSet<>());
+        Set<String> activeDates = new HashSet<>(uniqueDates);
+        Set<String> updatedAccess = new HashSet<>(accessedDates);
+        updatedAccess.add(todayStr);
+        prefs.edit().putStringSet("accessed_dates", updatedAccess).apply();
+        activeDates.addAll(updatedAccess);
+
+        // Calculate consecutive streak
+        int currentStreak = calculateCurrentStreak(activeDates);
+        int bestStreak = prefs.getInt("best_streak", 0);
+        if (currentStreak > bestStreak) {
+            bestStreak = currentStreak;
+            prefs.edit().putInt("best_streak", bestStreak).apply();
+        }
+        binding.tvCurrentStreak.setText("Current Streak: " + currentStreak + " Days");
+        binding.tvBestStreak.setText(Math.max(bestStreak, currentStreak) + " Days");
+
+        // Dynamic week days visualization
+        int todayDayOfWeek = todayCal.get(Calendar.DAY_OF_WEEK);
+        int daysFromMonday = todayDayOfWeek - Calendar.MONDAY;
+        if (daysFromMonday < 0) {
+            daysFromMonday += 7;
+        }
+
+        Calendar weekCal = (Calendar) todayCal.clone();
+        weekCal.add(Calendar.DAY_OF_YEAR, -daysFromMonday);
+
+        String[] weekDayDates = new String[7];
+        String[] weekDayNames = new String[7];
+        for (int i = 0; i < 7; i++) {
+            Date d = weekCal.getTime();
+            weekDayDates[i] = dateFormat.format(d);
+            weekDayNames[i] = dayNameFormat.format(d);
+            weekCal.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        android.widget.TextView[] dayTextViews = new android.widget.TextView[]{
+            binding.tvDay1, binding.tvDay2, binding.tvDay3, binding.tvDay4, binding.tvDay5, binding.tvDay6, binding.tvDay7
+        };
+        android.widget.ImageView[] dayImageViews = new android.widget.ImageView[]{
+            binding.ivDay1, binding.ivDay2, binding.ivDay3, binding.ivDay4, binding.ivDay5, binding.ivDay6, binding.ivDay7
+        };
+
+        for (int i = 0; i < 7; i++) {
+            android.widget.TextView tv = dayTextViews[i];
+            android.widget.ImageView iv = dayImageViews[i];
+            if (tv == null || iv == null) continue;
+
+            tv.setText(weekDayNames[i]);
+            int pad = (int) (6 * getResources().getDisplayMetrics().density);
+            iv.setPadding(pad, pad, pad, pad);
+
+            if (i < daysFromMonday) {
+                // Past day
+                tv.setTypeface(null, android.graphics.Typeface.NORMAL);
+                if (activeDates.contains(weekDayDates[i])) {
+                    tv.setTextColor(getResources().getColor(R.color.on_surface_variant));
+                    iv.setBackgroundResource(R.drawable.bg_circle_solid_purple);
+                    iv.setImageResource(R.drawable.ic_check_white);
+                } else {
+                    tv.setTextColor(getResources().getColor(R.color.outline));
+                    iv.setBackgroundResource(R.drawable.bg_circle_inactive);
+                    iv.setImageDrawable(null);
+                }
+            } else if (i == daysFromMonday) {
+                // Today
+                tv.setTypeface(null, android.graphics.Typeface.BOLD);
+                tv.setTextColor(getResources().getColor(R.color.on_surface));
+                iv.setBackgroundResource(R.drawable.bg_circle_light_purple);
+                iv.setImageResource(R.drawable.ic_lightning_purple);
+            } else {
+                // Future day
+                tv.setTypeface(null, android.graphics.Typeface.NORMAL);
+                tv.setTextColor(getResources().getColor(R.color.outline));
+                iv.setBackgroundResource(R.drawable.bg_circle_inactive);
+                iv.setImageDrawable(null);
+            }
+        }
 
         // Goal Tracking
         int sessions = history.size();
@@ -145,6 +261,51 @@ public class LearningProgressFragment extends Fragment {
         } else {
             binding.cvRecentQuiz.setVisibility(View.GONE);
         }
+
+        // AI Learning Tips
+        String[] aiTips = new String[]{
+            "You learn most effectively between 9:00 AM - 11:00 AM. Consider scheduling your deep work sessions then.",
+            "Taking a 5-minute break after every 25 minutes of study can significantly improve retention.",
+            "Reviewing incorrect answers immediately after a quiz helps reinforce the correct concepts.",
+            "Consistency is key! A 15-minute daily session is better than cramming for 2 hours once a week.",
+            "Mix up your topics. Interleaving different subjects can enhance problem-solving skills.",
+            "Teaching a concept you just learned to someone else is one of the best ways to master it.",
+            "Stay hydrated and well-rested. Your brain processes and stores information while you sleep!"
+        };
+        int randomTipIndex = (int) (Math.random() * aiTips.length);
+        if (binding.tvAiTip != null) {
+            binding.tvAiTip.setText(aiTips[randomTipIndex]);
+        }
+    }
+
+    private int calculateCurrentStreak(Set<String> activeDates) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+        Calendar cal = Calendar.getInstance();
+        int streak = 0;
+        
+        // Check today
+        String todayStr = dateFormat.format(cal.getTime());
+        if (activeDates.contains(todayStr)) {
+            streak++;
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+            while (activeDates.contains(dateFormat.format(cal.getTime()))) {
+                streak++;
+                cal.add(Calendar.DAY_OF_YEAR, -1);
+            }
+        } else {
+            // Check yesterday
+            cal.add(Calendar.DAY_OF_YEAR, -1);
+            String yesterdayStr = dateFormat.format(cal.getTime());
+            if (activeDates.contains(yesterdayStr)) {
+                streak++;
+                cal.add(Calendar.DAY_OF_YEAR, -1);
+                while (activeDates.contains(dateFormat.format(cal.getTime()))) {
+                    streak++;
+                    cal.add(Calendar.DAY_OF_YEAR, -1);
+                }
+            }
+        }
+        return streak;
     }
 
     @Override
