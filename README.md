@@ -52,7 +52,3 @@ CogniQuest is an Android application designed to provide interactive quiz sessio
 - `ui/quiz/`: Contains Quiz Session and Quiz History activities.
 - `ui/profile/`: Contains Profile Statistics and Edit Profile activities.
 - `ui/admin/`: Contains Admin Dashboard, Manage Quizzes, and Manage Questions activities.
-
-## License
-
-[Specify License Here]
