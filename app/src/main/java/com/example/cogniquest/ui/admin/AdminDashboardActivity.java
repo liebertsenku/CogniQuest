@@ -67,12 +67,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnSystemLogs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(AdminDashboardActivity.this, "System Logs", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         binding.tvViewAllQuizzes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +113,10 @@ public class AdminDashboardActivity extends AppCompatActivity {
     private void setupDashboardData() {
         java.util.List<Quiz> quizzes = databaseHelper.getAllQuizzes();
         binding.tvTotalQuizzes.setText(String.valueOf(quizzes.size()));
+
+        UserManager userManager = new UserManager(this);
+        int userCount = userManager.getRegisteredUserCount();
+        binding.tvActiveUsers.setText(String.valueOf(userCount));
 
         // Get up to 3 most recent quizzes
         java.util.List<Quiz> recentQuizzes = new java.util.ArrayList<>();

@@ -146,13 +146,6 @@
                             android:textColor="@color/on_surface"
                             android:textStyle="bold"
                             android:layout_marginTop="4dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+12% this week"
-                            android:textColor="@color/secondary"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -177,19 +170,13 @@
                             android:textColor="@color/on_surface_variant"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/tvActiveUsers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="8,592"
                             android:textSize="28sp"
                             android:textColor="@color/on_surface"
                             android:textStyle="bold"
-                            android:layout_marginTop="4dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+5% this week"
-                            android:textColor="@color/secondary"
-                            android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -226,17 +213,7 @@
                 android:layout_marginBottom="12dp"
                 app:cornerRadius="12dp"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSystemLogs"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="System Logs"
-                android:textSize="16sp"
-                android:textColor="@color/on_surface_variant"
-                app:strokeColor="@color/outline_variant"
-                android:layout_marginBottom="24dp"
-                app:cornerRadius="12dp"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

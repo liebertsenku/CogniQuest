@@ -58,6 +58,14 @@ public class UserManager {
         return registeredUsernames.contains(username.toLowerCase());
     }
 
+    public int getRegisteredUserCount() {
+        java.util.Set<String> registeredUsernames = prefs.getStringSet("registered_usernames", new java.util.HashSet<>());
+        // +1 for the admin user, or just the size if we only count actual registered users.
+        // Let's return the size of registered users + 1 (for admin)
+        return registeredUsernames.size() + 1;
+    }
+
+
     public boolean validateLogin(String usernameOrEmail, String password) {
         if (usernameOrEmail.equalsIgnoreCase("admin") && password.equals("admin")) {
             return true;
