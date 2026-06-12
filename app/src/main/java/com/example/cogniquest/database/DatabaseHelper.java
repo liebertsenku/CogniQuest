@@ -17,7 +17,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "CogniQuest.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 8;
 
     public static final String TABLE_QUIZZES = "quizzes";
     public static final String COLUMN_ID = "id";
@@ -111,112 +111,88 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     private void insertDummyData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TITLE, "Misteri Sejarah Kuno");
-        values.put(COLUMN_DESC, "Jelajahi peristiwa-peristiwa tak dikenal di zaman kuno.");
-        values.put(COLUMN_CATEGORY, "Sejarah");
-        values.put(COLUMN_QUESTIONS_COUNT, 3);
-        values.put(COLUMN_DIFFICULTY, "Hard");
+        values.put(COLUMN_TITLE, "IPA Terpadu");
+        values.put(COLUMN_DESC, "Uji pemahamanmu tentang sel makhluk hidup dan gaya gerak dalam sains.");
+        values.put(COLUMN_CATEGORY, "IPA");
+        values.put(COLUMN_QUESTIONS_COUNT, 4);
+        values.put(COLUMN_DIFFICULTY, "Medium");
         long q1Id = db.insert(TABLE_QUIZZES, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Budaya Populer 2023");
-        values.put(COLUMN_DESC, "Uji pengetahuan Anda tentang film, musik, dan tren.");
-        values.put(COLUMN_CATEGORY, "Seni");
-        values.put(COLUMN_QUESTIONS_COUNT, 3);
+        values.put(COLUMN_TITLE, "Matematika");
+        values.put(COLUMN_DESC, "Asah kemampuan aljabar, statistika, dan geometri dasar.");
+        values.put(COLUMN_CATEGORY, "Matematika");
+        values.put(COLUMN_QUESTIONS_COUNT, 4);
         values.put(COLUMN_DIFFICULTY, "Medium");
         long q2Id = db.insert(TABLE_QUIZZES, null, values);
         
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Dasar-Dasar Eksplorasi Luar Angkasa");
-        values.put(COLUMN_DESC, "Panduan pemula untuk mengenal bintang-bintang.");
-        values.put(COLUMN_CATEGORY, "Sains");
-        values.put(COLUMN_QUESTIONS_COUNT, 5);
+        values.put(COLUMN_TITLE, "IPS Terpadu");
+        values.put(COLUMN_DESC, "Uji wawasanmu tentang sejarah kemerdekaan Indonesia dan kondisi geografis ASEAN.");
+        values.put(COLUMN_CATEGORY, "IPS");
+        values.put(COLUMN_QUESTIONS_COUNT, 4);
         values.put(COLUMN_DIFFICULTY, "Easy");
         long q3Id = db.insert(TABLE_QUIZZES, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Pemrograman & Komputer");
-        values.put(COLUMN_DESC, "Uji pengetahuan Anda tentang pemrograman dan perangkat keras komputer.");
-        values.put(COLUMN_CATEGORY, "Teknologi");
+        values.put(COLUMN_TITLE, "Bahasa Indonesia");
+        values.put(COLUMN_DESC, "Uji kemampuan tata bahasa, unsur intrinsik karya sastra, dan kalimat efektif.");
+        values.put(COLUMN_CATEGORY, "Bahasa Indonesia");
         values.put(COLUMN_QUESTIONS_COUNT, 4);
-        values.put(COLUMN_DIFFICULTY, "Medium");
+        values.put(COLUMN_DIFFICULTY, "Easy");
         long q4Id = db.insert(TABLE_QUIZZES, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Ibu Kota & Landmark Dunia");
-        values.put(COLUMN_DESC, "Apakah Anda tahu di mana letak kota-kota dan keajaiban alam dunia?");
-        values.put(COLUMN_CATEGORY, "Geografi");
+        values.put(COLUMN_TITLE, "English Quiz");
+        values.put(COLUMN_DESC, "Test your grammar, vocabulary, and reading comprehension basics.");
+        values.put(COLUMN_CATEGORY, "Bahasa Inggris");
         values.put(COLUMN_QUESTIONS_COUNT, 4);
         values.put(COLUMN_DIFFICULTY, "Easy");
         long q5Id = db.insert(TABLE_QUIZZES, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "Buku Klasik & Penulisnya");
-        values.put(COLUMN_DESC, "Selami dunia cerita dan penulis legendaris.");
-        values.put(COLUMN_CATEGORY, "Sastra");
-        values.put(COLUMN_QUESTIONS_COUNT, 3);
-        values.put(COLUMN_DIFFICULTY, "Hard");
+        values.put(COLUMN_TITLE, "PPKn");
+        values.put(COLUMN_DESC, "Uji pemahaman nilai-nilai Pancasila, konstitusi, dan hak asasi manusia.");
+        values.put(COLUMN_CATEGORY, "PPKn");
+        values.put(COLUMN_QUESTIONS_COUNT, 4);
+        values.put(COLUMN_DIFFICULTY, "Easy");
         long q6Id = db.insert(TABLE_QUIZZES, null, values);
 
-        values = new ContentValues();
-        values.put(COLUMN_TITLE, "Teka-teki Logika & Asah Otak");
-        values.put(COLUMN_DESC, "Uji deduksi matematika dan pemikiran logis Anda.");
-        values.put(COLUMN_CATEGORY, "Matematika");
-        values.put(COLUMN_QUESTIONS_COUNT, 3);
-        values.put(COLUMN_DIFFICULTY, "Medium");
-        long q7Id = db.insert(TABLE_QUIZZES, null, values);
+        // Insert Questions for IPA Terpadu SMP (Medium)
+        insertQuestionHelper(db, q1Id, "Organel sel yang berfungsi sebagai tempat respirasi sel dan menghasilkan energi adalah?", "Kloroplas", "Mitokondria", "Ribosom", "Lisosom", "B");
+        insertQuestionHelper(db, q1Id, "Zat yang dihasilkan dari proses fotosintesis tumbuhan hijau adalah?", "Oksigen dan Glukosa", "Karbondioksida dan Air", "Nitrogen dan Protein", "Oksigen dan Karbondioksida", "A");
+        insertQuestionHelper(db, q1Id, "Satuan internasional untuk gaya adalah?", "Watt", "Joule", "Newton", "Pascal", "C");
+        insertQuestionHelper(db, q1Id, "Perubahan wujud benda dari gas langsung menjadi padat disebut?", "Menyublim", "Mengkristal (Deposisi)", "Mengembun", "Mencair", "B");
 
-        values = new ContentValues();
-        values.put(COLUMN_TITLE, "Trivia Olimpiade");
-        values.put(COLUMN_DESC, "Seberapa banyak yang Anda ketahui tentang sejarah Olimpiade?");
-        values.put(COLUMN_CATEGORY, "Olahraga");
-        values.put(COLUMN_QUESTIONS_COUNT, 3);
-        values.put(COLUMN_DIFFICULTY, "Medium");
-        long q8Id = db.insert(TABLE_QUIZZES, null, values);
+        // Insert Questions for Matematika SMP (Medium)
+        insertQuestionHelper(db, q2Id, "Hasil dari (-12) x 3 + 20 : (-4) adalah?", "-41", "-31", "-11", "41", "A");
+        insertQuestionHelper(db, q2Id, "Nilai x yang memenuhi persamaan linear 3x - 5 = 7 adalah?", "2", "3", "4", "5", "C");
+        insertQuestionHelper(db, q2Id, "Sebuah segitiga siku-siku memiliki panjang alas 6 cm dan tinggi 8 cm. Panjang hipotenusanya (sisi miring) adalah?", "10 cm", "12 cm", "14 cm", "16 cm", "A");
+        insertQuestionHelper(db, q2Id, "Median dari data nilai: 6, 7, 5, 8, 9, 7, 6 adalah?", "6", "7", "8", "9", "B");
 
-        // Insert Questions for Space Exploration Basics (Easy)
-        insertQuestionHelper(db, q3Id, "Planet mana yang paling dekat dengan Matahari?", "Venus", "Merkurius", "Bumi", "Mars", "B");
-        insertQuestionHelper(db, q3Id, "Apa planet terbesar di tata surya kita?", "Saturnus", "Jupiter", "Neptunus", "Uranus", "B");
-        insertQuestionHelper(db, q3Id, "Planet mana yang dikenal sebagai Planet Merah?", "Mars", "Venus", "Jupiter", "Merkurius", "A");
-        insertQuestionHelper(db, q3Id, "Di galaksi mana Bumi berada?", "Andromeda", "Bima Sakti", "Triangulum", "Sombrero", "B");
-        insertQuestionHelper(db, q3Id, "Siapa orang pertama yang menginjakkan kaki di Bulan?", "Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "John Glenn", "C");
+        // Insert Questions for IPS Terpadu SMP (Easy)
+        insertQuestionHelper(db, q3Id, "Siapakah tokoh yang membacakan teks Proklamasi Kemerdekaan Indonesia pada tanggal 17 Agustus 1945?", "Mohammad Hatta", "Soekarno", "Sutan Sjahrir", "Sayuti Melik", "B");
+        insertQuestionHelper(db, q3Id, "Negara anggota ASEAN yang tidak memiliki garis pantai laut adalah?", "Kamboja", "Laos", "Vietnam", "Myanmar", "B");
+        insertQuestionHelper(db, q3Id, "Kerajaan Hindu tertua di Indonesia yang terletak di Kalimantan Timur adalah?", "Kutai", "Tarumanegara", "Majapahit", "Sriwijaya", "A");
+        insertQuestionHelper(db, q3Id, "Garis khayal yang membagi wilayah persebaran fauna Indonesia Barat (Asiatis) dan Indonesia Tengah (Peralihan) dinamakan?", "Garis Weber", "Garis Wallace", "Garis Khatulistiwa", "Garis Bujur", "B");
 
-        // Insert Questions for Pop Culture 2023 (Medium)
-        insertQuestionHelper(db, q2Id, "Film mana yang memenangkan Oscar untuk Film Terbaik pada tahun 2023?", "Avatar: The Way of Water", "Top Gun: Maverick", "Everything Everywhere All at Once", "The Banshees of Inisherin", "C");
-        insertQuestionHelper(db, q2Id, "Artis mana yang merilis album terkenal 'Midnights'?", "Taylor Swift", "Beyonce", "Adele", "Harry Styles", "A");
-        insertQuestionHelper(db, q2Id, "Apa film dengan pendapatan tertinggi di tahun 2023?", "Oppenheimer", "The Super Mario Bros. Movie", "Barbie", "Guardians of the Galaxy Vol. 3", "C");
+        // Insert Questions for Bahasa Indonesia SMP (Easy)
+        insertQuestionHelper(db, q4Id, "Manakah dari kalimat berikut yang merupakan kalimat efektif?", "Para siswa-siswa sedang belajar di kelas.", "Siswa-siswa sedang belajar di dalam kelas.", "Banyak siswa-siswa sedang belajar di kelas.", "Para siswa sedang belajar di kelas.", "D");
+        insertQuestionHelper(db, q4Id, "Tokoh utama yang memiliki watak baik dalam suatu cerita atau karya sastra disebut?", "Protagonis", "Antagonis", "Tritagonis", "Figuran", "A");
+        insertQuestionHelper(db, q4Id, "Penulisan kata serapan yang baku di bawah ini adalah?", "Apotik", "Analisa", "Praktik", "Aktifitas", "C");
+        insertQuestionHelper(db, q4Id, "Majas yang membandingkan benda mati seolah-olah hidup dan bertingkah laku seperti manusia disebut majas?", "Hiperbola", "Personifikasi", "Metafora", "Asosiasi", "B");
 
-        // Insert Questions for Ancient History Mysteries (Hard)
-        insertQuestionHelper(db, q1Id, "Piramida Agung Giza dibangun untuk Firaun Mesir yang mana?", "Tutankhamun", "Khufu", "Ramses II", "Akhenaten", "B");
-        insertQuestionHelper(db, q1Id, "Peradaban kuno mana yang membangun kota pegunungan Picchu Picchu?", "Aztec", "Maya", "Inca", "Olmec", "C");
-        insertQuestionHelper(db, q1Id, "Siapa Kaisar pertama Kekaisaran Romawi?", "Julius Caesar", "Nero", "Marcus Aurelius", "Augustus", "D");
+        // Insert Questions for English Quiz (Easy)
+        insertQuestionHelper(db, q5Id, "She ________ to school by bus every day.", "go", "goes", "going", "went", "B");
+        insertQuestionHelper(db, q5Id, "\"The weather is very hot today.\" What is the antonym of \"hot\"?", "Warm", "Cold", "Cool", "Dry", "B");
+        insertQuestionHelper(db, q5Id, "\"I have a new cat. ________ fur is white and soft.\" The correct possessive pronoun is?", "Its", "It's", "His", "Her", "A");
+        insertQuestionHelper(db, q5Id, "Which of the following is a polite expression to ask for help?", "Give me a hand!", "Can you help me, please?", "I need you now!", "Hey, do this!", "B");
 
-        // Insert Questions for Coding & Computers (Medium)
-        insertQuestionHelper(db, q4Id, "Apa kepanjangan dari HTTP?", "Hypertext Transfer Protocol", "High Text Transfer Process", "Hyperlink Text Technology Protocol", "Home Tool Transfer Procedure", "A");
-        insertQuestionHelper(db, q4Id, "Bahasa pemrograman apa yang saat ini paling banyak digunakan untuk pengembangan Android?", "Swift", "Kotlin", "C#", "Python", "B");
-        insertQuestionHelper(db, q4Id, "Apa otak utama dari sebuah komputer?", "RAM", "GPU", "CPU", "SSD", "C");
-        insertQuestionHelper(db, q4Id, "Siapa yang dikenal sebagai bapak ilmu komputer?", "Bill Gates", "Steve Jobs", "Alan Turing", "Ada Lovelace", "C");
-
-        // Insert Questions for World Capitals & Landmarks (Easy)
-        insertQuestionHelper(db, q5Id, "What is the capital of Japan?", "Seoul", "Beijing", "Tokyo", "Kyoto", "C");
-        insertQuestionHelper(db, q5Id, "Sungai mana yang terpanjang di dunia?", "Amazon", "Nil", "Yangtze", "Mississippi", "B");
-        insertQuestionHelper(db, q5Id, "Di negara mana Menara Eiffel berada?", "Jerman", "Italia", "Prancis", "Spanyol", "C");
-        insertQuestionHelper(db, q5Id, "Manakah benua terkecil berdasarkan luas wilayah daratan?", "Eropa", "Australia", "Antartika", "Amerika Selatan", "B");
-
-        // Insert Questions for Classic Books & Authors (Hard)
-        insertQuestionHelper(db, q6Id, "Siapa yang menulis drama 'Romeo dan Juliet'?", "Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen", "B");
-        insertQuestionHelper(db, q6Id, "Siapa nama kapten dalam novel 'Moby-Dick' karya Herman Melville?", "Kapten Ahab", "Kapten Hook", "Kapten Nemo", "Kapten Sparrow", "A");
-        insertQuestionHelper(db, q6Id, "Novel mana yang dimulai dengan kalimat terkenal: 'It was the best of times, it was the worst of times'?", "Great Expectations", "A Tale of Two Cities", "Pride and Prejudice", "Wuthering Heights", "B");
-
-        // Insert Questions for Logic Puzzles & Brain Teasers (Medium)
-        insertQuestionHelper(db, q7Id, "Jika sebuah segitiga memiliki panjang sisi 3, 4, dan 5, berapa luasnya?", "6", "10", "12", "15", "A");
-        insertQuestionHelper(db, q7Id, "Angka berapa yang berikutnya dalam urutan: 2, 4, 8, 16, ...?", "20", "24", "32", "64", "C");
-        insertQuestionHelper(db, q7Id, "What is the only even prime number?", "0", "2", "4", "6", "B");
-
-        // Insert Questions for Olympic Games Trivia (Medium)
-        insertQuestionHelper(db, q8Id, "Seberapa sering Pertandingan Olimpiade diadakan?", "Setiap 2 tahun", "Setiap 3 tahun", "Setiap 4 tahun", "Setiap 5 tahun", "C");
-        insertQuestionHelper(db, q8Id, "Negara mana yang memenangkan medali emas terbanyak di Olimpiade Musim Panas Tokyo 2020?", "China", "Amerika Serikat", "Jepang", "Britania Raya", "B");
-        insertQuestionHelper(db, q8Id, "Apa warna dari lima cincin pada bendera Olimpiade?", "Merah, biru, hijau, kuning, hitam", "Merah, biru, hijau, oranye, ungu", "Merah, putih, biru, emas, perak", "Pink, purple, grey, brown, white", "A");
+        // Insert Questions for PPKn SMP (Easy)
+        insertQuestionHelper(db, q6Id, "Rumusan dasar negara Pancasila secara sah tercantum dalam Pembukaan UUD 1945 alinea ke-?", "Pertama", "Kedua", "Ketiga", "Keempat", "D");
+        insertQuestionHelper(db, q6Id, "Lambang sila ketiga Pancasila yang berbunyi 'Persatuan Indonesia' adalah?", "Rantai Emas", "Pohon Beringin", "Kepala Banteng", "Padi dan Kapas", "B");
+        insertQuestionHelper(db, q6Id, "Badan yang merumuskan dan menetapkan rancangan UUD 1945 dalam sidang-sidangnya adalah?", "BPUPKI", "PPKI", "KNIP", "DPR", "B");
+        insertQuestionHelper(db, q6Id, "Sikap menghormati perbedaan suku, agama, ras, dan antargolongan di Indonesia sesuai dengan semboyan negara yaitu?", "Tut Wuri Handayani", "Bhinneka Tunggal Ika", "Jalesveva Jayamahe", "Kartika Eka Paksi", "B");
     }
 
     private void insertQuestionHelper(SQLiteDatabase db, long quizId, String text, String oA, String oB, String oC, String oD, String correct) {
