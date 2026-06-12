@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduMaster AI - Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .ai-gradient-border {
+            position: relative;
+            background: linear-gradient(to right, #3525cd, #684000);
+            padding: 1px;
+            border-radius: 1rem;
+        }
+        .ai-gradient-content {
+            background: #f8f9ff;
+            border-radius: calc(1rem - 1px);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c4d8;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "on-tertiary-container": "#ffd4a4",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "surface-tint": "#4d44e3",
+                      "on-surface": "#0b1c30",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#dce9ff",
+                      "surface-variant": "#d3e4fe",
+                      "on-secondary-container": "#00714d",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "inverse-surface": "#213145",
+                      "surface-container-low": "#eff4ff",
+                      "secondary-container": "#6cf8bb",
+                      "on-secondary-fixed": "#002113",
+                      "tertiary-fixed": "#ffddb8",
+                      "surface-dim": "#cbdbf5",
+                      "on-error": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-surface-variant": "#464555",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#c7c4d8",
+                      "surface": "#f8f9ff",
+                      "primary-container": "#4f46e5",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "background": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#0f0069",
+                      "tertiary-container": "#885500",
+                      "primary-fixed": "#e2dfff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary": "#684000",
+                      "inverse-primary": "#c3c0ff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-background": "#0b1c30",
+                      "primary": "#3525cd",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-primary-container": "#dad7ff",
+                      "secondary": "#006c49",
+                      "outline": "#777587",
+                      "on-tertiary-fixed-variant": "#653e00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "section-gap": "4rem",
+                      "gutter": "1.5rem",
+                      "container-padding-desktop": "2.5rem",
+                      "container-padding-mobile": "1rem"
+              },
+              "fontFamily": {
+                      "title-md": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Top AppBar -->
+<header class="flex justify-between items-center px-container-padding-mobile py-4 w-full z-40 sticky top-0 backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80 border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-container/10 text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<h1 class="font-title-md text-title-md text-primary">AI Assistant</h1>
+</div>
+<button class="font-label-md text-label-md text-on-surface-variant hover:bg-primary-container/20 px-4 py-2 rounded-full transition-colors active:scale-95 duration-200">
+            Clear
+        </button>
+</header>
+<!-- Main Chat Canvas -->
+<main class="flex-1 overflow-y-auto px-container-padding-mobile md:px-container-padding-desktop py-6 flex flex-col gap-8 max-w-4xl mx-auto w-full pb-40">
+<!-- AI Initial Greeting -->
+<div class="flex flex-col items-start max-w-[85%] md:max-w-[75%] animate-fade-in">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">EduMaster AI</span>
+</div>
+<div class="p-4 rounded-2xl bg-surface-container text-on-surface shadow-sm">
+<p class="font-body-md text-body-md">Hello! I'm your EduMaster AI. How can I help you with your studies today?</p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end self-end max-w-[85%] md:max-w-[75%]">
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-sm text-label-sm text-outline">You</span>
+<div class="w-6 h-6 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A clean, professional close-up of a diverse university student in a bright, naturally lit campus environment. The lighting is soft and golden, highlighting a focused yet friendly expression. The aesthetic is modern and high-key, reflecting the premium Indigo and white color palette of the EduMaster AI brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJRes2Dk_ItXNL7AzuzsNGg3rHFR-ElqgoA10bXPyKkWdLT0zDP08WRpCV5ccpQIqWkDOSOug3Q6pVbEYUQkyc-kSwsl3bAPXTUEOwDb51p-5TR0lpIZk2qa2xGSKP3-A-qDqznENQ1BEGGjN76EdiKRNfLh2wutK1LpydixkZ8CKOCbjwmILCtmbyCFCxveqJ92mJ-r18HbIq8eivAx2kl2iIm7dh_B5QP-ZvfOLbTlgdV44FcD1vN7gpaNsuwSVkZAWdtSFuLfxl"/>
+</div>
+</div>
+<div class="p-4 rounded-2xl bg-primary text-on-primary shadow-md">
+<p class="font-body-md text-body-md">Can you explain the Android Activity Lifecycle?</p>
+</div>
+</div>
+<!-- AI Structured Response -->
+<div class="flex flex-col items-start w-full group">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">EduMaster AI</span>
+</div>
+<div class="ai-gradient-border w-full">
+<div class="ai-gradient-content p-6 flex flex-col gap-4 text-on-surface">
+<div class="flex justify-between items-start">
+<h2 class="font-title-md text-title-md text-primary">The Android Activity Lifecycle</h2>
+<button class="p-2 rounded-full hover:bg-primary-container/10 text-outline hover:text-primary transition-all active:scale-90">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<p class="font-body-md text-body-md leading-relaxed">The lifecycle consists of several stages that an Activity transitions through. Here is a high-level breakdown:</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary">play_circle</span>
+<h3 class="font-label-md text-label-md">Creation Phase</h3>
+</div>
+<ul class="text-label-md space-y-1 text-on-surface-variant">
+<li>• <strong class="text-on-surface">onCreate()</strong>: App startup logic.</li>
+<li>• <strong class="text-on-surface">onStart()</strong>: Activity becomes visible.</li>
+<li>• <strong class="text-on-surface">onResume()</strong>: Foreground interaction.</li>
+</ul>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-error">stop_circle</span>
+<h3 class="font-label-md text-label-md">Destruction Phase</h3>
+</div>
+<ul class="text-label-md space-y-1 text-on-surface-variant">
+<li>• <strong class="text-on-surface">onPause()</strong>: Partially hidden.</li>
+<li>• <strong class="text-on-surface">onStop()</strong>: Fully hidden.</li>
+<li>• <strong class="text-on-surface">onDestroy()</strong>: Cleanup before closing.</li>
+</ul>
+</div>
+</div>
+<div class="mt-2 p-3 bg-secondary-container/10 border-l-4 border-secondary rounded-r-lg">
+<p class="text-label-md italic text-on-secondary-container">Tip: Always use onPause() or onStop() to release heavy resources like location listeners or animations.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Input Area -->
+<div class="fixed bottom-0 left-0 w-full z-40 bg-surface/95 backdrop-blur-md pb-[72px]">
+<div class="max-w-4xl mx-auto px-container-padding-mobile py-4 flex flex-col gap-4">
+<!-- Suggested Questions -->
+<div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="flex-none px-4 py-1.5 rounded-full border border-outline-variant text-label-md text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:border-primary transition-all">
+                    Summarize OOP
+                </button>
+<button class="flex-none px-4 py-1.5 rounded-full border border-outline-variant text-label-md text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:border-primary transition-all">
+                    Explain ML
+                </button>
+<button class="flex-none px-4 py-1.5 rounded-full border border-outline-variant text-label-md text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:border-primary transition-all">
+                    Study Tips
+                </button>
+</div>
+<!-- Sleek Input Field -->
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-highest border-none rounded-2xl py-4 pl-6 pr-14 focus:ring-2 focus:ring-primary text-body-md placeholder:text-outline transition-all shadow-sm" placeholder="Ask EduMaster AI anything..." type="text"/>
+<button class="absolute right-2 p-2.5 bg-primary text-on-primary rounded-xl hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 backdrop-blur-xl bg-surface/90 dark:bg-surface-dim/90 border-t border-outline-variant/20 shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1.5 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1.5 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="chat_spark" style="font-variation-settings: 'FILL' 1;">chat_spark</span>
+<span class="font-label-sm text-label-sm mt-1">AI Assistant</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1.5 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-sm text-label-sm mt-1">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1.5 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for smooth scrolling to bottom on new content
+        const chatCanvas = document.querySelector('main');
+        const scrollBottom = () => {
+            chatCanvas.scrollTo({
+                top: chatCanvas.scrollHeight,
+                behavior: 'smooth'
+            });
+        };
+
+        // Simulated Input Interaction
+        const input = document.querySelector('input');
+        const sendBtn = document.querySelector('.absolute.right-2');
+
+        sendBtn.addEventListener('click', () => {
+            if(input.value.trim() !== '') {
+                // Potential logic to add user bubble
+                input.value = '';
+                scrollBottom();
+            }
+        });
+
+        // Enter key support
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+    </script>
+</body></html>

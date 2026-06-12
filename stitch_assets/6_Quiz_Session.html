@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>CogniQuest - Quiz Session</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar hiding for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#e7e4ff",
+                    "outline-variant": "#c7c4d6",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3631b4",
+                    "on-tertiary-fixed": "#40000c",
+                    "on-secondary-container": "#005266",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#b7eaff",
+                    "tertiary-container": "#cf003b",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#00677f",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-tertiary-container": "#ffdfdf",
+                    "primary-fixed-dim": "#c2c1ff",
+                    "surface-dim": "#dadadc",
+                    "surface-variant": "#e2e2e5",
+                    "surface": "#f9f9fc",
+                    "primary": "#3f3bbd",
+                    "tertiary-fixed-dim": "#ffb3b5",
+                    "secondary-fixed-dim": "#4cd6ff",
+                    "primary-container": "#5856d6",
+                    "secondary-container": "#00ccf9",
+                    "surface-bright": "#f9f9fc",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#920027",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-fixed": "#0c006a",
+                    "inverse-primary": "#c2c1ff",
+                    "background": "#f9f9fc",
+                    "surface-tint": "#4f4ccd",
+                    "on-secondary-fixed": "#001f28",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#004e60",
+                    "tertiary": "#a2002c",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "surface-container-low": "#f3f3f6",
+                    "on-surface": "#1a1c1e",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e2dfff",
+                    "outline": "#777585",
+                    "error": "#ba1a1a",
+                    "surface-container": "#eeeef0",
+                    "on-surface-variant": "#464554",
+                    "tertiary-fixed": "#ffdada",
+                    "inverse-surface": "#2f3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "section-padding": "40px",
+                    "safe-top": "env(safe-area-inset-top, 24px)",
+                    "safe-bottom": "env(safe-area-inset-bottom, 24px)"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Plus Jakarta Sans", "sans-serif"],
+                    "label-lg": ["Hanken Grotesk", "sans-serif"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+                    "label-md": ["Hanken Grotesk", "sans-serif"]
+            },
+            "fontSize": {
+                    "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                    "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                    "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                    "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md h-screen flex flex-col overflow-hidden antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Focus Header -->
+<header class="w-full px-container-margin pt-safe-top pb-stack-sm flex items-center justify-between bg-background z-10 shrink-0">
+<!-- Close/Back Action -->
+<button aria-label="Exit Session" class="w-10 h-10 flex items-center justify-center rounded-full text-outline hover:bg-surface-container-low hover:text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+<span class="material-symbols-outlined text-2xl font-bold">close</span>
+</button>
+<!-- Progress Indicator -->
+<div class="flex-1 px-6 flex flex-col items-center">
+<span class="font-label-lg text-label-lg text-outline mb-1.5 uppercase tracking-wider">Question 5 of 10</span>
+<div class="w-full max-w-[200px] h-3 bg-surface-container-high rounded-full overflow-hidden shadow-inner">
+<div class="h-full bg-gradient-to-r from-primary to-secondary-container rounded-full w-1/2 transition-all duration-500 ease-out shadow-[0_0_10px_rgba(63,59,189,0.5)]"></div>
+</div>
+</div>
+<!-- Timer -->
+<div class="w-10 h-10 relative flex items-center justify-center">
+<!-- Circular SVG Timer Background -->
+<svg class="absolute inset-0 w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-tertiary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="70, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="font-label-lg text-label-lg text-tertiary relative z-10">14</span>
+</div>
+</header>
+<!-- Main Content Canvas (Scrollable if needed, but optimally single screen) -->
+<main class="flex-1 flex flex-col w-full max-w-[720px] mx-auto px-container-margin overflow-y-auto no-scrollbar relative z-0">
+<!-- Center Context (Question) -->
+<div class="flex-1 flex flex-col justify-center min-h-[265px] py-stack-lg">
+<!-- Category Chip -->
+<div class="flex justify-center mb-stack-md">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-lg border border-outline-variant/50 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary fill">science</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Physics</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-center text-on-background leading-tight">
+                Which fundamental force of nature is responsible for the orbit of planets around the sun?
+            </h1>
+</div>
+<!-- Bottom Context (Answers) -->
+<div class="flex flex-col gap-stack-md pb-stack-lg mt-auto">
+<!-- Answer Option 1 (Inactive) -->
+<button class="group relative w-full text-left bg-surface-container-lowest border-2 border-outline-variant rounded-2xl p-5 shadow-[0_4px_0_0_theme(colors.outline-variant)] hover:bg-surface-container-lowest active:translate-y-[4px] active:shadow-none transition-all duration-75 focus:outline-none">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-outline group-hover:bg-outline-variant/20 transition-colors">A</div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">Electromagnetism</span>
+</div>
+</button>
+<!-- Answer Option 2 (Inactive) -->
+<button class="group relative w-full text-left bg-surface-container-lowest border-2 border-outline-variant rounded-2xl p-5 shadow-[0_4px_0_0_theme(colors.outline-variant)] hover:bg-surface-container-lowest active:translate-y-[4px] active:shadow-none transition-all duration-75 focus:outline-none">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-outline group-hover:bg-outline-variant/20 transition-colors">B</div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">Strong Nuclear Force</span>
+</div>
+</button>
+<!-- Answer Option 3 (Active / Selected State) -->
+<button class="group relative w-full text-left bg-primary/5 border-2 border-primary rounded-2xl p-5 shadow-[0_4px_0_0_theme(colors.primary)] active:translate-y-[4px] active:shadow-none transition-all duration-75 focus:outline-none">
+<div class="absolute inset-0 bg-primary/5 rounded-2xl animate-pulse"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-label-lg text-label-lg shadow-sm">C</div>
+<span class="font-body-lg text-body-lg text-primary font-bold flex-1">Gravity</span>
+<span class="material-symbols-outlined text-primary fill text-2xl animate-bounce">check_circle</span>
+</div>
+</button>
+<!-- Answer Option 4 (Inactive) -->
+<button class="group relative w-full text-left bg-surface-container-lowest border-2 border-outline-variant rounded-2xl p-5 shadow-[0_4px_0_0_theme(colors.outline-variant)] hover:bg-surface-container-lowest active:translate-y-[4px] active:shadow-none transition-all duration-75 focus:outline-none">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-outline group-hover:bg-outline-variant/20 transition-colors">D</div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">Weak Nuclear Force</span>
+</div>
+</button>
+</div>
+</main>
+<!-- Bottom Action Area (Fixed) -->
+<footer class="w-full px-container-margin pb-safe-bottom pt-stack-md bg-gradient-to-t from-background via-background to-transparent z-10 shrink-0">
+<div class="max-w-[720px] mx-auto w-full">
+<!-- Primary Action Button with Tactile Shadow -->
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg uppercase tracking-widest py-5 rounded-2xl shadow-[0_4px_0_0_#2b2885] active:translate-y-[4px] active:shadow-none transition-all duration-75 flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-primary-fixed-dim">
+<span>Check Answer</span>
+</button>
+</div>
+</footer>
+</body></html>

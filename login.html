@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - CogniQuest</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary": "#a2002c",
+                        "on-primary-fixed-variant": "#3631b4",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#001f28",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-variant": "#e2e2e5",
+                        "inverse-primary": "#c2c1ff",
+                        "on-tertiary-fixed": "#40000c",
+                        "on-secondary-container": "#005266",
+                        "inverse-surface": "#2f3133",
+                        "on-tertiary-fixed-variant": "#920027",
+                        "background": "#f9f9fc",
+                        "surface-bright": "#f9f9fc",
+                        "secondary-container": "#00ccf9",
+                        "surface-container": "#eeeef0",
+                        "surface-tint": "#4f4ccd",
+                        "on-background": "#1a1c1e",
+                        "primary": "#3f3bbd",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#00677f",
+                        "on-surface-variant": "#464554",
+                        "on-primary-container": "#e7e4ff",
+                        "primary-fixed-dim": "#c2c1ff",
+                        "on-tertiary-container": "#ffdfdf",
+                        "surface-container-low": "#f3f3f6",
+                        "secondary-fixed": "#b7eaff",
+                        "primary-container": "#5856d6",
+                        "on-primary-fixed": "#0c006a",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dadadc",
+                        "secondary-fixed-dim": "#4cd6ff",
+                        "outline": "#777585",
+                        "outline-variant": "#c7c4d6",
+                        "surface": "#f9f9fc",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "tertiary-fixed-dim": "#ffb3b5",
+                        "tertiary-container": "#cf003b",
+                        "tertiary-fixed": "#ffdada",
+                        "primary-fixed": "#e2dfff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1e",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#004e60"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "section-padding": "40px",
+                        "stack-lg": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-inverse-surface text-inverse-on-surface min-h-screen flex items-center justify-center relative overflow-hidden font-body-md antialiased selection:bg-primary selection:text-on-primary">
+<!-- Atmospheric Background Elements (High-Tech Feel) -->
+<div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary opacity-20 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-secondary opacity-20 rounded-full blur-[100px] pointer-events-none"></div>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-[420px] px-container-margin z-10 flex flex-col items-center">
+<!-- Header -->
+<div class="text-center mb-section-padding w-full flex flex-col items-center gap-stack-md">
+<div class="w-16 h-16 bg-primary-container rounded-lg flex items-center justify-center shadow-lg transform rotate-3">
+<span class="material-symbols-outlined text-[32px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">
+                    psychology
+                </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary-fixed-dim tracking-tight">CogniQuest</h1>
+<p class="font-body-md text-body-md text-inverse-on-surface/70">Enter the arena of knowledge.</p>
+</div>
+<!-- Login Form -->
+<form class="w-full flex flex-col gap-stack-lg" onsubmit="event.preventDefault();">
+<!-- Username Input -->
+<div class="flex flex-col gap-stack-sm group">
+<label class="font-label-md text-label-md text-inverse-on-surface/70 group-focus-within:text-primary-fixed-dim transition-colors" for="username">Username</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-0 text-inverse-on-surface/50 group-focus-within:text-primary-fixed-dim transition-colors pb-2">
+                        person
+                    </span>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:border-primary-fixed-dim focus:ring-0 pl-8 pb-2 font-body-lg text-body-lg text-inverse-on-surface placeholder:text-inverse-on-surface/30 transition-all" id="username" placeholder="Scholar123" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-stack-sm group">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-inverse-on-surface/70 group-focus-within:text-primary-fixed-dim transition-colors" for="password">Password</label>
+<a class="font-label-md text-label-md text-primary-fixed-dim hover:text-primary-fixed transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-0 text-inverse-on-surface/50 group-focus-within:text-primary-fixed-dim transition-colors pb-2">
+                        lock
+                    </span>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/30 focus:border-primary-fixed-dim focus:ring-0 pl-8 pb-2 font-body-lg text-body-lg text-inverse-on-surface placeholder:text-inverse-on-surface/30 transition-all tracking-widest" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-0 text-inverse-on-surface/50 hover:text-inverse-on-surface pb-2 transition-colors" type="button">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-stack-sm">
+<!-- Tactile Button per Style Guidance -->
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-4 rounded-lg border-b-[4px] border-on-primary-fixed-variant hover:bg-primary-container active:border-b-0 active:translate-y-[4px] transition-all flex justify-center items-center gap-2" type="submit">
+<span>Login</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Footer -->
+<div class="mt-section-padding text-center">
+<p class="font-body-md text-body-md text-inverse-on-surface/70">
+                Don't have an account? 
+                <a class="font-label-lg text-label-lg text-primary-fixed-dim hover:text-primary-fixed ml-1 transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bottom-[-2px] after:left-0 after:bg-primary-fixed after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left" href="#">Sign up</a>
+</p>
+</div>
+</main>
+</body></html>
